@@ -1,5 +1,4 @@
 import { defineStore} from 'pinia';
-import L from 'leaflet';
 import type { Segment } from '../model/Segment';
 
 export const useMapStore = defineStore('map', {

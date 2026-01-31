@@ -22,16 +22,17 @@ const segments = ref<Segment[]>([])
 const mapStore = useMapStore()
 const gpxLayer = ref<any>(null)
 
+const gpxFile = computed(() => mapStore.getGpxFile)
+
 onMounted(() => {
   initMap()
 })
 
 watch(
-  () => mapStore.gpxFile,
+  gpxFile,
   (newGpxFile) => {
-    if (newGpxFile && map.value) {
       loadGPX(newGpxFile)
-    }
+
   }
 )
 
@@ -161,17 +162,16 @@ const drawSegmentOnMap = (segment: Segment) => {
 }
 
 
-
 const getColorBySlope = (slope: number): string => {
-  if (slope < -1) return '#a81417'
-  if (slope > 2) return '#a81417'
+  if (slope < -3) return '#a81417'
+  if (slope > 3) return '#a81417'
   return '#115c25'
 }
 
 const getCategorie = (slope: number): string => {
-  if (slope < -1) return 'Descente'
-  if (slope > 2) return 'Montée'
-  return 'Plat'
+  if (slope < -3) return 'D'
+  if (slope > 3) return 'M'
+  return 'S'
 }
 
 </script>
