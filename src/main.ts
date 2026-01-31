@@ -5,6 +5,9 @@ import './assets/main.css'
 
 // Import des vues
 import HomeView from './views/HomeView.vue'
+import { createPinia } from 'pinia'
+
+const pinia = createPinia();
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,4 +23,5 @@ const router = createRouter({
 const app = createApp(App)
 
 app.use(router)
+app.use(pinia)
 app.mount('#app')

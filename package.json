@@ -12,6 +12,7 @@
     "leaflet": "^1.9.4",
     "leaflet-gpx": "^2.1.2",
     "leaflet-routing-machine": "^3.2.12",
+    "pinia": "^3.0.4",
     "vue": "^3.4.0",
     "vue-router": "^4.2.5"
   },

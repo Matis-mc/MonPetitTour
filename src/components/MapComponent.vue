@@ -6,30 +6,34 @@
 
 <script setup lang="ts">
 
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue'
 import L from 'leaflet'
 import 'leaflet-gpx'
 import 'leaflet-routing-machine'
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
+import { useMapStore } from '../stores/MapStore'
+import { Segment } from '@/model/Segment'
 
-// Interface pour un segment
-interface Segment {
-  startPoint: L.LatLng
-  endPoint: L.LatLng
-  slope: number
-}
 
 // State
 const map = ref<L.Map | null>(null)
 const points = ref<L.LatLng[]>([])
 const segments = ref<Segment[]>([])
-let polyline: L.Polyline | null = null;
+const mapStore = useMapStore()
+const gpxLayer = ref<any>(null)
 
 onMounted(() => {
   initMap()
-  // Pour le moment, on initialise juste la carte
-  // Vous ajouterez loadGPX() quand vous aurez un fichier GPX
 })
+
+watch(
+  () => mapStore.gpxFile,
+  (newGpxFile) => {
+    if (newGpxFile && map.value) {
+      loadGPX(newGpxFile)
+    }
+  }
+)
 
 onBeforeUnmount(() => {
   if (map.value) {
@@ -41,7 +45,7 @@ const initMap = () => {
 
 
   // Initialiser la carte
-  map.value = L.map('map').setView([47.35581936616119, 0.7937484150029221], 13)
+  map.value = L.map('map').setView([47.35, 0.79], 13)
   
   // Ajouter le fond de carte OpenStreetMap
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,6 +59,34 @@ const initMap = () => {
     //popup(e.latlng);
     drawPath()
   })
+}
+
+const loadGPX = (file: File) => {
+  console.log('Chargement du fichier GPX :', file.name)
+  if (!map.value) return
+  
+  // Supprimer la couche GPX précédente si elle existe
+  if (gpxLayer.value) {
+    map.value.removeLayer(gpxLayer.value)
+  }
+  
+  const url = URL.createObjectURL(file)
+  
+  // @ts-ignore - leaflet-gpx plugin
+  gpxLayer.value = new L.GPX(url, {
+    async: true,
+    marker_options: {
+      startIconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon.png',
+      endIconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-shadow.png'
+    }
+  })
+  
+  gpxLayer.value.on('loaded', () => {
+    map.value!.fitBounds(gpxLayer.value.getBounds())
+  })
+  
+  gpxLayer.value.addTo(map.value)
 }
 
 const drawPath = () => {
@@ -90,12 +122,17 @@ const createAndDrawSegment = async (startPoint: L.LatLng, endPoint: L.LatLng) =>
     
     // Créer l'objet segment
     const segment: Segment = {
-      startPoint,
-      endPoint,
-      slope
+      latDebut: startPoint.lat,
+      lonDebut : startPoint.lng,
+      latFin :endPoint.lat,
+      lonFin: endPoint.lng,
+      slope: slope,
+      distance: distance,
+      categorie: getCategorie(slope),
     }
     
-    segments.value.push(segment)
+    segments.value.push(segment); // to delete later
+    mapStore.addSegment(segment);
     
     // Afficher le segment sur la carte
     drawSegmentOnMap(segment)
@@ -110,7 +147,10 @@ const drawSegmentOnMap = (segment: Segment) => {
   const color = getColorBySlope(Math.abs(segment.slope))
   
   L.Routing.control({
-    waypoints: [segment.startPoint, segment.endPoint],
+    waypoints: [
+      L.latLng(segment.latDebut, segment.lonDebut),
+      L.latLng(segment.latFin, segment.lonFin)
+    ],
     routeWhileDragging: false,
     show: false,
     addWaypoints: false,
@@ -123,14 +163,16 @@ const drawSegmentOnMap = (segment: Segment) => {
 
 
 const getColorBySlope = (slope: number): string => {
-  // Gradient de couleur basé sur la pente en %
-  if (slope < 2) return '#00FF00'    // Vert - pente très faible
-  if (slope < 5) return '#FFFF00'    // Jaune - pente faible
-  if (slope < 8) return '#FFA500'    // Orange - pente modérée
-  if (slope < 12) return '#FF6347'   // Rouge tomate - pente forte
-  return '#8B0000'                    // Rouge foncé - pente très forte
+  if (slope < -1) return '#a81417'
+  if (slope > 2) return '#a81417'
+  return '#115c25'
 }
 
+const getCategorie = (slope: number): string => {
+  if (slope < -1) return 'Descente'
+  if (slope > 2) return 'Montée'
+  return 'Plat'
+}
 
 </script>
 
