@@ -6,6 +6,7 @@ class Segment {
     distance: number;
     categorie: string;
     slope: number;
+    ranking?: number[]
 
     constructor(
         latDebut: number,
@@ -14,8 +15,8 @@ class Segment {
         lonFin: number,
         distance: number,
         categorie: string,
-        slope: number
-
+        slope: number,
+        ranking: number[]
     ) {
         this.latDebut = latDebut;
         this.lonDebut = lonDebut;
@@ -24,7 +25,8 @@ class Segment {
         this.distance = distance;
         this.categorie = categorie;
         this.slope = slope;
-    }
+        this.ranking = ranking
+    } 
 
 }
 

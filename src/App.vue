@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
-    <header class="bg-white shadow-sm">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <h1 class="text-3xl font-bold text-gray-900">Mon Petit Tour</h1>
+  <div class="min-h-screen bg-amber-100">
+    <header class="bg-amber-100">
+      <div class="flex justify-center w-full px-2">
+        <img src="@/assets/images/logo/logo.png" alt="Mon Petit Tour Logo" class="h-10"/>
       </div>
     </header>
     

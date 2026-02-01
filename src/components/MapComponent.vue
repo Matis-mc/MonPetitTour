@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div id="map" class="w-full h-[600px] rounded-lg shadow-inner"></div>
-    </div>
+    <div id="map" class="w-full h-full rounded-lg shadow-inner"></div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -13,6 +13,7 @@ import 'leaflet-routing-machine'
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
 import { useMapStore } from '../stores/MapStore'
 import { Segment } from '@/model/Segment'
+import { CATEGORIES } from '@/constants/categories'
 
 
 // State
@@ -130,6 +131,7 @@ const createAndDrawSegment = async (startPoint: L.LatLng, endPoint: L.LatLng) =>
       slope: slope,
       distance: distance,
       categorie: getCategorie(slope),
+      ranking: [15, 10, 5]
     }
     
     segments.value.push(segment); // to delete later
@@ -169,9 +171,9 @@ const getColorBySlope = (slope: number): string => {
 }
 
 const getCategorie = (slope: number): string => {
-  if (slope < -3) return 'D'
-  if (slope > 3) return 'M'
-  return 'S'
+  if (slope < -3) return CATEGORIES.DESCENT.code
+  if (slope > 3) return CATEGORIES.MOUNTAIN.code
+  return CATEGORIES.FLAT.code
 }
 
 </script>

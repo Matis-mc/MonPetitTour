@@ -1,13 +1,14 @@
 <template>
-    <div class="p-4 border-b">
-        <h3 class="text-xl font-semibold mb-2">Catégorie : {{ categorie }}</h3>
+    <div :class="['p-4 rounded-xl m-2 drop-shadow-lg justify-center', bgColor]">
+        <h3 class="text-xl text-center font-semibold mb-2">{{ categorie }}</h3>
         <div v-for="(segment, index) in segments" :key="index">
-            <SegmentRankComponent :segment="segment" />
+            <SegmentRankComponent :segment="segment" :segment-index="index"/>
         </div>
     </div>  
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { Segment } from '../model/Segment';
 import SegmentRankComponent from './SegmentRankComponent.vue';
 
@@ -19,6 +20,19 @@ const props = defineProps({
     segments: {
         type: Array as () => Array<Segment>,
         required: true
+    }
+})
+
+const bgColor = computed(() => {
+    switch(props.categorie) {
+        case "Plat":
+            return 'bg-emerald-500';
+        case "Montagne":
+            return 'bg-red-400';
+        case "Descente":
+            return 'bg-blue-300';
+        default:
+            return 'bg-gray-200';
     }
 })
 
