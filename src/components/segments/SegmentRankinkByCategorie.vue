@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Segment } from '../model/Segment';
+import { Segment } from '../../model/Segment';
 import SegmentRankComponent from './SegmentRankComponent.vue';
 
 const props = defineProps({

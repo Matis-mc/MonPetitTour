@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import MapComponent from '@/components/MapComponent.vue';
-import SegmentVisualisationComponent from '@/components/SegmentVisualisationComponent.vue';
+import SegmentVisualisationComponent from '@/components/segments/SegmentVisualisationComponent.vue';
 import { useMapStore } from '@/stores/MapStore';
 import { useWorkFlowStore } from '@/stores/WorkFlowStore';
 import { computed } from 'vue';

@@ -8,7 +8,10 @@
         <MapView />
       </div>
       <div v-if="step==2">
-        <SegmentsRankingComponent/>
+        <SegmentsRankingView/>
+      </div>
+      <div v-if="step==3">
+        <CreationToursConfirmation/> 
       </div>
     </div>
   </div>
@@ -16,7 +19,8 @@
 
 <script setup lang="ts">
 import FileInputComponent from '@/components/FileInputComponent.vue';
-import SegmentsRankingComponent from '@/components/SegmentsRankingComponent.vue';
+import SegmentsRankingView from '@/views/SegmentsRankingView.vue';
+import CreationToursConfirmation from '@/components/tours/CreationToursConfirmation.vue';
 import { useMapStore } from '@/stores/MapStore';
 import { useWorkFlowStore } from '@/stores/WorkFlowStore';
 import { computed } from 'vue';
