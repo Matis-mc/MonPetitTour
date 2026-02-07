@@ -25,8 +25,15 @@ const gpxLayer = ref<any>(null)
 
 const gpxFile = computed(() => mapStore.getGpxFile)
 
+const props = defineProps<{
+  isEditing: boolean
+}>()
+
 onMounted(() => {
   initMap()
+  if(gpxFile.value) {
+    loadGPX(gpxFile.value)
+  }
 })
 
 watch(
@@ -49,6 +56,11 @@ const initMap = () => {
   // Initialiser la carte
   map.value = L.map('map').setView([47.35, 0.79], 13)
   
+  // Invalider la taille pour que la carte se redessine correctement
+  setTimeout(() => {
+    map.value?.invalidateSize()
+  }, 100)
+  
   // Ajouter le fond de carte OpenStreetMap
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
@@ -57,9 +69,11 @@ const initMap = () => {
 
 
   map.value.on('click', (e: L.LeafletMouseEvent) => {
-    points.value.push(e.latlng)
+    if(props.isEditing) {
+          points.value.push(e.latlng)
     //popup(e.latlng);
     drawPath()
+    }
   })
 }
 
@@ -89,6 +103,12 @@ const loadGPX = (file: File) => {
   })
   
   gpxLayer.value.addTo(map.value)
+
+  if(mapStore.getSegments.length > 0) {
+    for (const segment of mapStore.getSegments) {
+      drawSegmentOnMap(segment)
+    }
+  }
 }
 
 const drawPath = () => {

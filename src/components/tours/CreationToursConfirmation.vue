@@ -1,14 +1,15 @@
 <template>
-    <div>
+    <div class="flex flex-col h-screen">
         <h2>Récapitualtif du tours</h2>
+        <MapComponent :isEditing="false" class="w-full h-80"/>
         <div v-for="(segment, index) in segments" :key="index">
             <SegmentRankinkByCategorie v-if="segment.length > 0" :categorie="categories[index]" :segments="segment" />
         </div>
         <button 
             v-if="mapStore.getSegments.length > 0" 
             @click="workflowStore.nextStep()" 
-            class="fixed w-16 h-16 bottom-4 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-300">
-            <img src="@/assets/images/icones/fleche-droite.png" alt="Continue Icon" class="inline-block w-16 h-auto"/>
+            class="fixed w-16 h-16 bottom-4 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-200">
+            <img src="@/assets/images/icones/valider.png" alt="Continue Icon" class="inline-block w-16 h-auto"/>
         </button>
     </div>
 </template>
@@ -18,6 +19,7 @@ import { computed } from 'vue';
 import SegmentRankinkByCategorie from '@/components/segments/SegmentRankinkByCategorie.vue';
 import { CATEGORIES, CATEGORY_NAMES } from '@/constants/categories';
 import { useWorkFlowStore } from '@/stores/WorkFlowStore';
+import MapComponent from '../MapComponent.vue';
 
 const mapStore = useMapStore();
 const workflowStore = useWorkFlowStore();

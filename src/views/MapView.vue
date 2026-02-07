@@ -1,6 +1,6 @@
 <template>
     <div class="h-screen flex flex-col">
-        <MapComponent class="flex-1"/>
+        <MapComponent :is-editing="true" class="flex-1"/>
         <button class="fixed w-16 h-16 bottom-4 left-4 px-4 py-2 text-white rounded-full shadow-lg bg-teal-50" @click="workflowStore.openSegmentModal()">
             <img src="@/assets/images/icones/segment.png" alt="Download Icon" class="inline-block w-16 h-auto"/>
         </button>
