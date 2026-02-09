@@ -1,32 +1,39 @@
 import { defineStore} from 'pinia';
+import { useRouter } from 'vue-router';
+import { TOUR_STEPS_ROUTES } from '../constants/toursteps';
 
 
 export const useWorkFlowStore = defineStore('workflow', {
     state: () => ({
-        currentStep: 0,
         segmentModalVisible: false
     }),
     getters: {
-        getCurrentStep(state) {
-            return state.currentStep;
-        },
         isSegmentModalVisible(state) {
             return state.segmentModalVisible;
         }
     },
     actions: {
-        setCurrentStep(step: number) {
-            console.log('WorkFlowStore: setCurrentStep called with', step);
-            this.currentStep = step;
+        getCurrentStepIndex(): number {
+            const router = useRouter();
+            const currentPath = router.currentRoute.value.path;
+            const currentRoute = currentPath.split('/').pop();
+            return TOUR_STEPS_ROUTES.indexOf(currentRoute as string);
+        },
+        navigateToStep(offset: number) {
+            const currentIndex = this.getCurrentStepIndex();
+            const nextIndex = currentIndex + offset;
+            
+            if (nextIndex >= 0 && nextIndex < TOUR_STEPS_ROUTES.length) {
+                const router = useRouter();
+                const nextRoute = TOUR_STEPS_ROUTES[nextIndex];
+                router.push(`/tours/${nextRoute}`);
+            }
         },
         nextStep() {
-            this.currentStep += 1;
-            console.log('WorkFlowStore: nextStep called, currentStep is now', this.currentStep);
+            this.navigateToStep(1);
         },
         previousStep() {
-            if (this.currentStep > 0) {
-                this.currentStep -= 1;
-            }
+            this.navigateToStep(-1);
         },
         openSegmentModal() {
             this.segmentModalVisible = true;

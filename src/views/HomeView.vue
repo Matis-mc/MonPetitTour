@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 import FileInputComponent from '@/components/FileInputComponent.vue';
-import SegmentsRankingView from '@/views/SegmentsRankingView.vue';
+import SegmentsRankingView from '@/views/tours/SegmentsRankingView.vue';
 import CreationToursConfirmation from '@/components/tours/CreationToursConfirmation.vue';
 import { useMapStore } from '@/stores/MapStore';
 import { useWorkFlowStore } from '@/stores/WorkFlowStore';
