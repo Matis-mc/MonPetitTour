@@ -36,4 +36,5 @@ const segmentPlat = computed(() =>
 const segmentDescente = computed(() => 
   mapStore.getSegments.filter(s => s.categorie === CATEGORIES.DESCENT.code)
 );
+
 </script>
