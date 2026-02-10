@@ -6,8 +6,7 @@
             <SegmentRankinkByCategorie v-if="segment.length > 0" :categorie="categories[index]" :segments="segment" />
         </div>
         <button 
-            v-if="mapStore.getSegments.length > 0" 
-            @click="workflowStore.nextStep()" 
+            @click="routingService.goToHome()" 
             class="fixed w-16 h-16 bottom-4 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-200">
             <img src="@/assets/images/icones/valider.png" alt="Continue Icon" class="inline-block w-16 h-auto"/>
         </button>
@@ -18,11 +17,12 @@ import { useMapStore } from '@/stores/MapStore';
 import { computed } from 'vue';
 import SegmentRankinkByCategorie from '@/components/segments/SegmentRankinkByCategorie.vue';
 import { CATEGORIES, CATEGORY_NAMES } from '@/constants/categories';
-import { useWorkFlowStore } from '@/stores/WorkFlowStore';
 import MapComponent from '../MapComponent.vue';
+import { useRoutingService } from '@/services/routingService';
+
+const routingService = useRoutingService();
 
 const mapStore = useMapStore();
-const workflowStore = useWorkFlowStore();
 const categories = CATEGORY_NAMES;
 const segments = computed(() => 
   [segmentMontee.value, segmentPlat.value, segmentDescente.value]
