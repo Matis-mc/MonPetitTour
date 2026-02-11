@@ -1,6 +1,7 @@
 <template>
-      <div class="max-w-7xl mx-auto spy-8">
+    <div class="max-w-7xl mx-auto spy-8">
     <div class="h-screen flex flex-col">
+        <h2>{{ tourStore.tourCreation.name }}</h2>
         <MapComponent :is-editing="true" class="flex-1"/>
         <button class="fixed w-16 h-16 bottom-4 left-4 px-4 py-2 text-white rounded-full shadow-lg bg-teal-50" @click="openSegmentModal()">
             <img src="@/assets/images/icones/segment.png" alt="Download Icon" class="inline-block w-16 h-auto"/>
@@ -25,10 +26,14 @@ import MapComponent from '@/components/MapComponent.vue';
 import SegmentVisualisationComponent from '@/components/segments/SegmentVisualisationComponent.vue';
 import { useRoutingService } from '@/services/routingService';
 import { useMapStore } from '@/stores/MapStore';
+import { useTourStore } from '@/stores/tourStore';
 import { computed, ref } from 'vue';
 
 const routingService = useRoutingService();
+
 const mapStore = useMapStore();
+const tourStore = useTourStore();
+
 const isSegmentModalVisible = ref(false);
 const hasSegmentCreated = computed(() => mapStore.getSegments.length > 0);
 

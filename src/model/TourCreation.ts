@@ -2,11 +2,12 @@ import { Segment } from "./Segment";
 
 class TourCreation {
 
-    private id?: number;
-    private name: string;
-    private description: string;
-    private date: Date;
-    private segments: Segment[];
+    id?: number;
+    name: string;
+    description: string;
+    date: Date;
+    segments: Segment[];
+    gpxFile?: File;
 
     constructor(name: string, description: string, date: Date, segments: Segment[], id?: number) {
         this.name = name;
@@ -37,6 +38,10 @@ class TourCreation {
     getSegments(): Segment[] {
         return this.segments;
     } 
+
+    getGpxFile(): File {
+        return this.gpxFile;
+    }   
     
     setName(name: string): void {
         this.name = name;
@@ -53,6 +58,10 @@ class TourCreation {
     setSegments(segments: Segment[]): void {
         this.segments = segments;
     }   
+
+    setGpxFile(gpxFile: File): void {
+        this.gpxFile = gpxFile;
+    }
 }
 
 export { TourCreation };
