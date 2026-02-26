@@ -92,8 +92,8 @@ const loadGPX = (file: File) => {
   gpxLayer.value = new L.GPX(url, {
     async: true,
     marker_options: {
-      startIconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon.png',
-      endIconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon.png',
+      startIconUrl: '@/assets/images/icones/drapeau.png',
+      endIconUrl: '@/assets/images/icones/drapeau.png',
       shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-shadow.png'
     }
   })

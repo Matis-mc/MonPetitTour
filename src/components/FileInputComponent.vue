@@ -1,9 +1,10 @@
 <template>
     <div class="flex flex-col items-center gap-2 mb-4">
-        <label class="cursor-pointer">
-            <div class="w-16 h-16 bg-yellow-100 inset rounded-xl flex items-center justify-center shadow-lg transition">
-                <img src="@/assets/images/icones/ajout-fichier.png" alt="Upload File" class="w-10 h-10"/>
+        <label class="cursor-pointer justify-items-center">
+            <div class="w-32 h-32 bg-stone-800/10 inset rounded-xl flex items-center justify-center shadow-lg transition m-3">
+                <img src="@/assets/images/icones/ajout-fichier.png" alt="Upload File" class="w-20 h-20"/>
             </div>
+            <p class="text-center text-xs"> Sélectionner un fichier GPX</p>
             <input type="file" @change="handleFileChange" :accept="props.fileType" class="hidden"/>
         </label>
     </div>
