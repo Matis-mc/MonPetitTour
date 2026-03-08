@@ -1,9 +1,9 @@
 <template>
-    <div id="map" class="grid grid-cols-3 gap-4 shadow-md bg-white items-center justify-items-center">
+    <div id="map" class="grid grid-cols-3 gap-4 items-center justify-items-center">
         <h3 class="text-lg font-medium mb-2">{{ props.index }}</h3>
         <div class="text-center">
-            <p class="text-sm">Distance : {{ props.segment.distance.toFixed(2) }} m</p>
-            <p class="text-sm">Dénivelé : {{ props.segment.slope.toFixed(2) }} %</p>
+            <p class="text-m">↔️ {{ props.segment.distance.toFixed(2) }} m</p>
+            <p class="text-m">↗️ {{ props.segment.slope.toFixed(2) }} %</p>
         </div>
         <div class="relative">
             <img 

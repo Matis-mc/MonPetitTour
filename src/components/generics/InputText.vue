@@ -2,7 +2,7 @@
       <input v-model="props.modelValue"
       type="text" 
       :placeholder="props.placeholder" 
-      class="w-64 p-2 mb-4 border rounded-xl shadow-inner" />
+      class="w-64 p-2 mb-4 rounded-xl" />
 </template>
 <script setup lang="ts">
 

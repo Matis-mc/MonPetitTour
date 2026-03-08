@@ -1,5 +1,5 @@
 <template>
-    <div :class="['p-4 rounded-xl m-2 drop-shadow-lg justify-center', bgColor]">
+    <div :class="['p-4 rounded-xl m-2 shadow-lg justify-center', bgColor]">
         <h3 class="text-xl text-center font-semibold mb-2">{{ categorie }}</h3>
         <div v-for="(segment, index) in segments" :key="index">
             <SegmentRankComponent :segment="segment" :segment-index="index"/>
@@ -26,13 +26,13 @@ const props = defineProps({
 const bgColor = computed(() => {
     switch(props.categorie) {
         case "Plat":
-            return 'bg-emerald-500';
+            return 'border-l-4 border-emerald-500';
         case "Montagne":
-            return 'bg-red-400';
+            return 'border-l-4 border-red-400';
         case "Descente":
-            return 'bg-blue-300';
+            return 'border-l-4 border-blue-300';
         default:
-            return 'bg-gray-200';
+            return 'border-l-4 border-gray-200';
     }
 })
 

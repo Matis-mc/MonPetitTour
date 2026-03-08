@@ -1,9 +1,8 @@
 <template>
-    <div class="p-4 border-b grid grid-cols-6 gap-4 items-center justify-items-center">
-        <div class="font-semibold">n°{{segmentIndex + 1}}</div>
-        <div class="col-span-2">
-            <p>{{ segment.distance.toFixed(1) }}m</p>
-            <p>{{ segment.slope.toFixed(1) }}%</p>
+    <div class="p-4 grid grid-cols-6 gap-4 items-center justify-items-center">
+        <div class="col-span-3">
+            <div class="font-semibold">n°{{segmentIndex + 1}}</div>
+            <p>{{ segment.distance.toFixed(1) }}m  {{ segment.slope.toFixed(1) }}%</p>
         </div>
         <div class="flex col-span-3">
             <SegmentRankElement 
@@ -18,7 +17,7 @@
 </template>
 <script setup lang="ts">
 import { Segment } from '@/model/Segment';
-import SegmentRankElement from './SegmentRankElement.vue';
+import SegmentRankElement from './RankElement.vue';
 
     const props = defineProps({
         segment: {

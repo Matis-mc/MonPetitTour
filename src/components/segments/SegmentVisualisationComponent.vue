@@ -1,6 +1,5 @@
 <template>
-    <div class="flex-col item-center w-full shadow-md border">
-        <h3>Segments ajoutés au tour</h3>
+    <div class="flex-col item-center w-full border">
         <div v-for="(segment, index) in segments" :key="index">
             <SegmentListElement :segment="segment" :numero="index + 1" :index="index" />
         </div>

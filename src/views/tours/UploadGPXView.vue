@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex items-center justify-center">
+  <div class="w-full h-full flex items-center justify-center" :style="{ backgroundImage: `url(${bgImage})` }">
     <div class="bg-stone-100 w-2/3 min-w-80 flex flex-col items-center rounded-2xl shadow-md p-4 m-2">
       <InputText :modelValue="tourStore.tourCreation.name" placeholder="Nom du tour"/>
       <InputText :modelValue="tourStore.tourCreation.description" placeholder="Description"/>
@@ -14,6 +14,7 @@ import InputText from '@/components/generics/InputText.vue';
 import { useMapStore } from '@/stores/MapStore';
 import { useTourStore } from '@/stores/tourStore';
 import { useRouter } from 'vue-router';
+import bgImage from '@/assets/images/background/background-light.png';
 
 const mapStore = useMapStore();
 const router = useRouter();

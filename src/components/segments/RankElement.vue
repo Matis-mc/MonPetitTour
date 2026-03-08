@@ -1,9 +1,7 @@
 <template>
     <div 
         @click="isEditing = true"
-        :class="['w-12 h-12 flex flex-col justify-center rounded-lg items-center mx-1 cursor-pointer', bgColor]"
-    >
-        <p class="text-sm">{{ positionValue }}</p>
+        :class="['w-12 h-12 flex flex-col justify-center shadow-md rounded-3xl items-center mx-1 cursor-pointer', bgColor]">
         <div v-if="!isEditing" class="font-bold text-lg">{{ rankValue }}</div>
         <input 
             v-else

@@ -11,8 +11,8 @@
         </button>
     </div>
     <Teleport to="body">
-        <div v-if="isSegmentModalVisible" class="fixed top-4 rounded-xl inset-0 bg-amber-100 flex-col items-center justify-center">
-            <button @click="closeSegmentModal()">
+        <div v-if="isSegmentModalVisible" class="fixed m-4 p-2 shadow-md rounded-xl inset-0 bg-stone-100 flex-col items-center justify-center">
+            <button class="m-3" @click="closeSegmentModal()">
                 <img src="@/assets/images/icones/chevron-bas.png" alt="Close Icon" class="inline-block w-6 h-auto"/>
             </button>
             <SegmentVisualisationComponent/>

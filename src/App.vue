@@ -4,12 +4,14 @@
       <Header />
     </header>
     
-    <main class="flex-1 flex items-center justify-center">
-      <RouterView />
+    <main class="flex-1 overflow-hidden">
+      <RouterView v-slot="{ Component }">
+        <component :is="Component" class="h-full w-full" />
+      </RouterView>
     </main>
 
     <Footer />
-  </div>
+  </div> 
 </template>
 
 <script setup lang="ts">
