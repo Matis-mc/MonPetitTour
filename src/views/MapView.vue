@@ -3,10 +3,10 @@
     <div class="h-screen flex flex-col">
         <h2>{{ tourStore.tourCreation.name }}</h2>
         <MapComponent :is-editing="true" class="flex-1"/>
-        <button class="fixed w-16 h-16 bottom-4 left-4 px-4 py-2 text-white rounded-full shadow-lg bg-teal-50" @click="openSegmentModal()">
+        <button class="fixed w-16 h-16 bottom-16 left-4 px-4 py-2 text-white rounded-full shadow-lg bg-teal-50" @click="openSegmentModal()">
             <img src="@/assets/images/icones/segment.png" alt="Download Icon" class="inline-block w-16 h-auto"/>
         </button>
-        <button v-if="hasSegmentCreated" class="fixed w-16 h-16 bottom-4 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-300" @click="routingService.goToRanking()">
+        <button v-if="hasSegmentCreated" class="fixed w-16 h-16 bottom-16 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-300" @click="routingService.goToRanking()">
             <img src="@/assets/images/icones/fleche-droite.png" alt="Continue Icon" class="inline-block w-16 h-auto"/>
         </button>
     </div>

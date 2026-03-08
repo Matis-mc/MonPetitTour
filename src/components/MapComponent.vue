@@ -22,6 +22,7 @@ const points = ref<L.LatLng[]>([])
 const segments = ref<Segment[]>([])
 const mapStore = useMapStore()
 const gpxLayer = ref<any>(null)
+const slopeLayers = ref<L.Polyline[]>([])
 
 const gpxFile = computed(() => mapStore.getGpxFile)
 
@@ -80,35 +81,79 @@ const initMap = () => {
 const loadGPX = (file: File) => {
   console.log('Chargement du fichier GPX :', file.name)
   if (!map.value) return
-  
-  // Supprimer la couche GPX précédente si elle existe
+
+  // Supprimer l'ancien tracé GPX
   if (gpxLayer.value) {
     map.value.removeLayer(gpxLayer.value)
   }
-  
+
+  // Supprimer les anciennes polylines colorées
+  slopeLayers.value.forEach((l: L.Polyline) => map.value!.removeLayer(l))
+  slopeLayers.value = []
+
   const url = URL.createObjectURL(file)
-  
+
   // @ts-ignore - leaflet-gpx plugin
   gpxLayer.value = new L.GPX(url, {
     async: true,
+    polyline_options: { opacity: 0 }, // masquer le tracé par défaut
     marker_options: {
       startIconUrl: '@/assets/images/icones/drapeau.png',
       endIconUrl: '@/assets/images/icones/drapeau.png',
       shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-shadow.png'
     }
   })
-  
-  gpxLayer.value.on('loaded', () => {
+
+  gpxLayer.value.on('loaded', (e: any) => {
     map.value!.fitBounds(gpxLayer.value.getBounds())
+    drawSlopeColors(e.target)
   })
-  
+
   gpxLayer.value.addTo(map.value)
 
-  if(mapStore.getSegments.length > 0) {
+  if (mapStore.getSegments.length > 0) {
     for (const segment of mapStore.getSegments) {
       drawSegmentOnMap(segment)
     }
   }
+}
+
+const drawSlopeColors = (gpx: any) => {
+  if (!map.value) return
+
+  // Récupérer tous les points avec altitude de chaque track/segment
+  const layers = gpx.getLayers()
+  layers.forEach((trackLayer: any) => {
+    const subLayers = trackLayer.getLayers ? trackLayer.getLayers() : [trackLayer]
+    subLayers.forEach((segLayer: any) => {
+      const latlngs: L.LatLng[] = segLayer.getLatLngs ? segLayer.getLatLngs() : []
+      if (latlngs.length < 2) return
+
+      for (let i = 0; i < latlngs.length - 1; i++) {
+        const p1 = latlngs[i] as any
+        const p2 = latlngs[i + 1] as any
+
+        const ele1: number = p1?.meta?.ele ?? 0
+        const ele2: number = p2?.meta?.ele ?? 0
+        const dist2D = map.value!.distance(p1, p2)
+
+        const slope = dist2D > 0 ? ((ele2 - ele1) / dist2D) * 100 : 0
+        const color = getColorBySlope(slope)
+
+        // On ne dessine que les segments non-verts pour ne pas surcharger
+        const polyline = L.polyline([p1, p2], {
+          color,
+          weight: 4,
+          opacity: color === '#22c55e' ? 0.5 : 0.85
+        })
+
+        // Tooltip au clic
+        polyline.bindTooltip(`${slope.toFixed(1)}%`, { sticky: true })
+        polyline.addTo(map.value!)
+        slopeLayers.value.push(polyline)
+      }
+    })
+  })
 }
 
 const drawPath = () => {
@@ -185,9 +230,13 @@ const drawSegmentOnMap = (segment: Segment) => {
 
 
 const getColorBySlope = (slope: number): string => {
-  if (slope < -3) return '#a81417'
-  if (slope > 3) return '#a81417'
-  return '#115c25'
+  if (slope > 10)        return '#1a1a1a'  // noir        > +10%
+  if (slope > 5)         return '#ef4444'  // rouge    +5% à +10%
+  if (slope > 3)         return '#eab308'  // jaune    +3% à  +5%
+  if (slope >= -3)       return '#22c55e'  // vert     -3% à  +3%
+  if (slope >= -5)       return '#eab308'  // jaune    -5% à  -3%
+  if (slope >= -10)      return '#ef4444'  // rouge   -10% à  -5%
+  return '#1a1a1a'                         // noir        < -10%
 }
 
 const getCategorie = (slope: number): string => {
