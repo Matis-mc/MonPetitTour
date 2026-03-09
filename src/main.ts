@@ -10,6 +10,7 @@ import ConfirmationTourView from './views/tours/ConfirmationTourView.vue'
 import { createPinia } from 'pinia'
 import MapView from './views/MapView.vue'
 import SegmentsRankingView from './views/tours/SegmentsRankingView.vue'
+import SearchTourView from './views/participation/SearchTourView.vue'
 
 const pinia = createPinia();
 
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/tour/confirmation',
       name: 'confirmation',
       component: ConfirmationTourView
+    },
+    {
+      path: '/tour/search',
+      name: 'search',
+      component: SearchTourView
     }
   ]
 })

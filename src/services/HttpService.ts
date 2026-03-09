@@ -15,7 +15,7 @@ class HttpService {
 
         const response = await fetch(`${BASE_URL}/tours`, {
             method: 'POST',
-            body:formData,
+            body: formData,
         });
         if (!response.ok) {
             throw new Error('Failed to create tour');
@@ -32,6 +32,19 @@ class HttpService {
         });
         if (!response.ok) {
             throw new Error('Failed to fetch tours');
+        }
+        return await response.json();
+    }
+
+    async getTourByCode(code: string) {
+        const response = await fetch(`${BASE_URL}/tours/${code}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch tour by code');
         }
         return await response.json();
     }

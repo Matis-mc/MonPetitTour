@@ -21,7 +21,11 @@ class RoutingService {
     }
 
     goToRejoindreTour() {
-        this.router.push('/');
+        this.router.push('/tour/search');
+    }
+
+    goToActivities() {
+        this.router.push('/tour/activities');
     }
 
     goToRanking() {

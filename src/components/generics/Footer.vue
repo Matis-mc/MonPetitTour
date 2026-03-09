@@ -4,7 +4,7 @@
             <img src="@/assets/images/icones/creation-tour.png" 
              alt="Logo" class="w-10 h-10">
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1" @click="routingService.goToRejoindreTour()">
             <img src="@/assets/images/icones/participation-tour.png" alt="Logo" class="w-10 h-10">
         </div>
         <div class="col-span-1">

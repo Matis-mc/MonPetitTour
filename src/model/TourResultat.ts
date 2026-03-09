@@ -1,7 +1,6 @@
-import { PARAMETRES } from "@/constants/parametres";
 import { Segment } from "./Segment";
 
-class TourCreation {
+class TourResultat {
 
     id?: number;
     name: string;
@@ -11,9 +10,9 @@ class TourCreation {
     segments: Segment[];
     gpxFile?: File;
 
-    constructor(name: string, description: string, date: Date, segments: Segment[], id?: number) {
+    constructor(name: string, code: string, description: string, date: Date, segments: Segment[], id?: number) {
         this.name = name;
-        this.code = Math.trunc(Math.random() * (PARAMETRES.tourCodeLength)).toString();
+        this.code = code;
         this.description = description;
         this.date = date;
         this.segments = segments;
@@ -67,4 +66,4 @@ class TourCreation {
     }
 }
 
-export { TourCreation };
+export { TourResultat };

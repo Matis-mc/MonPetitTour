@@ -5,7 +5,7 @@
         </div>
         <button 
             @click="confirmationSegments()" 
-            class="fixed w-16 h-16 bottom-4 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-300">
+            class="fixed w-16 h-16 bottom-16 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-300">
             <img src="@/assets/images/icones/fleche-droite.png" alt="Continue Icon" class="inline-block w-16 h-auto"/>
         </button>
     </div>

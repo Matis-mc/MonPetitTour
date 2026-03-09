@@ -29,12 +29,11 @@
                     <div class="text-center">
                         <p class="text-xs uppercase tracking-widest text-gray-400 mb-1">Code du tour</p>
                         <p class="text-3xl font-mono font-bold tracking-wider text-stone-800">
-                            {{ tourStore.tourCreation.name?.toUpperCase().slice(0, 6) || '------' }}
+                            {{ tourStore.tourCreation.code}}
                         </p>
                     </div>
                     <!-- Placeholder QR Code -->
                     <div class="w-40 h-40 bg-stone-200 rounded-xl flex items-center justify-center border-2 border-dashed border-stone-400">
-                        <span class="text-stone-400 text-xs text-center px-2">QR Code à venir</span>
                     </div>
                 </div>
 
@@ -56,8 +55,8 @@
 
         <!-- Bouton validation -->
         <button
-            @click="confirmationSegments()"
-            class="fixed w-16 h-16 bottom-4 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-200">
+            @click="confirmationCreationTour()"
+            class="fixed w-16 h-16 bottom-16 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-200">
             <img src="@/assets/images/icones/valider.png" alt="Continue Icon" class="inline-block w-16 h-auto"/>
         </button>
     </div>
@@ -71,6 +70,7 @@ import MapComponent from '../MapComponent.vue';
 import { useRoutingService } from '@/services/routingService';
 import { useTourStore } from '@/stores/tourStore';
 import ApiService from '@/services/ApiService';
+
 
 const routingService = useRoutingService();
 const tourStore = useTourStore();
@@ -91,7 +91,7 @@ const segmentDescente = computed(() =>
   tourStore.tourCreation.getSegments().filter(s => s.categorie === CATEGORIES.DESCENT.code)
 );
 
-const confirmationSegments = () => {
+const confirmationCreationTour = () => {
     ApiService.createTour(tourStore.tourCreation).then(() => {
         tourStore.resetTourCreation();
     });

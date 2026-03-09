@@ -11,6 +11,10 @@ class ApiService {
         return await HttpService.getTours();
     }
 
+    async getTourByCode(code: string) {
+        return await HttpService.getTourByCode(code);
+    }
+
 
 }
 export default new ApiService();   
