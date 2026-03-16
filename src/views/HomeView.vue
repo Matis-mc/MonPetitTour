@@ -1,14 +1,27 @@
 <template>
-    <div class="flex bg-stone-100 flex-col gap-10 mx-auto p-10 justify-items-center"
+    <div class="flex bg-stone-100 flex-col mx-auto justify-items-center"
     :style="{ backgroundImage: `url(${bgImage})` }">
-      <button class="w-64 rounded shadow p-3 bg-red-400 self-center" @click="routingService.goToCreateTour()">Créer un tour</button>
-      <button class="w-64 rounded shadow p-3 bg-cyan-400 self-center">Rejoindre un tour</button>
-    </div>
+    <ResultTourListe :tours="tours" />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useRoutingService } from '@/services/routingService';
+import ApiService from '@/services/ApiService';
+import { onMounted, ref } from 'vue';
 import bgImage from '@/assets/images/background/background-light.png';
+import { TourResultat } from '@/model/TourResultat';
+import ResultTourListe from '@/components/tours/ResultTourListe.vue';
 
-const routingService = useRoutingService();
+let tours = ref([] as TourResultat[]);
+
+onMounted(() => {
+    ApiService.getTours().then(
+        (toursFetch) => {
+            console.log(toursFetch);
+            tours.value = toursFetch;
+        }
+    );
+});
+    
+
 </script>

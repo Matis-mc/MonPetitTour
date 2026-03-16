@@ -48,6 +48,32 @@ class HttpService {
         }
         return await response.json();
     }
+
+    async getStravaActivities() {
+        const response = await fetch(`${BASE_URL}/strava/activities`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch strava activities');
+        }
+        return await response.json();
+    }
+
+    async loadResultTourFromStrava(activityId: string, codeTour: string) {
+        const response = await fetch(`${BASE_URL}/strava/activities/${activityId}/${codeTour}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch strava activities');
+        }
+        return await response.json();
+    }
 }
 
 export default new HttpService();   

@@ -16,11 +16,11 @@ import { computed } from 'vue';
 import SegmentRankinkByCategorie from '@/components/segments/SegmentRankinkByCategorie.vue';
 import { CATEGORIES, CATEGORY_NAMES } from '@/constants/categories';
 import { useRoutingService } from '@/services/routingService';
-import { useTourStore } from '@/stores/tourStore';
+import { useCreationTourStore } from '@/stores/CreationTourStore';
 
 const routingService = useRoutingService();
 
-const tourStore = useTourStore();
+const tourStore = useCreationTourStore();
 const mapStore = useMapStore();
 const categories = CATEGORY_NAMES;
 

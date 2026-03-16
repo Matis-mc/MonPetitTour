@@ -12,13 +12,13 @@
 import FileInputComponent from '@/components/FileInputComponent.vue';
 import InputText from '@/components/generics/InputText.vue';
 import { useMapStore } from '@/stores/MapStore';
-import { useTourStore } from '@/stores/tourStore';
+import { useCreationTourStore } from '@/stores/CreationTourStore';
 import { useRouter } from 'vue-router';
 import bgImage from '@/assets/images/background/background-light.png';
 
 const mapStore = useMapStore();
 const router = useRouter();
-const tourStore = useTourStore();
+const tourStore = useCreationTourStore();
 
 const loadGPXFile = (event: any) => {
     const file = event.target.files?.[0];

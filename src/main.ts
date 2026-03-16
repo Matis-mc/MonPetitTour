@@ -11,6 +11,8 @@ import { createPinia } from 'pinia'
 import MapView from './views/MapView.vue'
 import SegmentsRankingView from './views/tours/SegmentsRankingView.vue'
 import SearchTourView from './views/participation/SearchTourView.vue'
+import ActiviteeView from './views/participation/ActiviteeView.vue'
+import ResultView from './views/participation/ResultView.vue'
 
 const pinia = createPinia();
 
@@ -46,6 +48,16 @@ const router = createRouter({
       path: '/tour/search',
       name: 'search',
       component: SearchTourView
+    },
+    {
+      path: '/tour/activities',
+      name: 'activities',
+      component: ActiviteeView
+    },
+    {
+      path: '/tour/result',
+      name: 'result',
+      component: ResultView
     }
   ]
 })

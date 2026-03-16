@@ -28,6 +28,10 @@ class RoutingService {
         this.router.push('/tour/activities');
     }
 
+    goToResult() {
+        this.router.push('/tour/result');
+    }
+
     goToRanking() {
         this.router.push('/tour/ranking');
     }

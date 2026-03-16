@@ -26,13 +26,13 @@ import MapComponent from '@/components/MapComponent.vue';
 import SegmentVisualisationComponent from '@/components/segments/SegmentVisualisationComponent.vue';
 import { useRoutingService } from '@/services/routingService';
 import { useMapStore } from '@/stores/MapStore';
-import { useTourStore } from '@/stores/tourStore';
+import { useCreationTourStore } from '@/stores/CreationTourStore';
 import { computed, ref } from 'vue';
 
 const routingService = useRoutingService();
 
 const mapStore = useMapStore();
-const tourStore = useTourStore();
+const tourStore = useCreationTourStore();
 
 const isSegmentModalVisible = ref(false);
 const hasSegmentCreated = computed(() => mapStore.getSegments.length > 0);

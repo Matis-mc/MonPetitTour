@@ -68,12 +68,12 @@ import SegmentRankinkByCategorie from '@/components/segments/SegmentRankinkByCat
 import { CATEGORIES, CATEGORY_NAMES } from '@/constants/categories';
 import MapComponent from '../MapComponent.vue';
 import { useRoutingService } from '@/services/routingService';
-import { useTourStore } from '@/stores/tourStore';
+import { useCreationTourStore } from '@/stores/CreationTourStore';
 import ApiService from '@/services/ApiService';
 
 
 const routingService = useRoutingService();
-const tourStore = useTourStore();
+const tourStore = useCreationTourStore();
 const categories = CATEGORY_NAMES;
 
 const activePanel = ref(0);

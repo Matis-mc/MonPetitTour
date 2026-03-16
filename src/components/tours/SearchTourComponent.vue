@@ -13,16 +13,24 @@ import ApiService from '@/services/ApiService';
 import { useRoutingService } from '@/services/routingService';
 import { ref } from 'vue';
 import BlackRoundButton from '@/components/generics/BlackRoundButton.vue';
+import { TourResultat } from '@/model/TourResultat';
+import { useResultatTourStore } from '@/stores/ResultatTourStore';
 
 const routingService = useRoutingService();
 
 
 const codeTour =  ref("");
-
+const store = useResultatTourStore();
 
 function fetchTour() {
     ApiService.getTourByCode(codeTour.value)
-    .then(() => routingService.goToActivities)
+    .then((tourResultat: TourResultat) => {
+        store.setTourResultat(tourResultat)
+        routingService.goToActivities();
+    })
+    .catch((error) => {
+        console.log(error);
+    })
 }
 
 
