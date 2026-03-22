@@ -6,7 +6,14 @@ import { StravaActivitee } from "@/model/StravaActivitee";
 class ApiService {
 
     async createTour(tourCreation: TourCreation) {
-        return await HttpService.createTour(tourCreation);
+        await HttpService.createTour(tourCreation)
+            .then((response) => {
+                return HttpService.uploadGpxFile(tourCreation.gpxFile!, response.id);
+            })
+            .catch((error) => {
+                console.error('Error creating tour:', error);
+                return null;
+            });
     }
 
     async getTours() {

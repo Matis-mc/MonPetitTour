@@ -14,6 +14,7 @@ import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
 import { useMapStore } from '../stores/MapStore'
 import { Segment } from '@/model/Segment'
 import { CATEGORIES } from '@/constants/categories'
+import { Coordonnee } from '@/model/Coordonnee'
 
 
 // State
@@ -52,7 +53,6 @@ onBeforeUnmount(() => {
 })
 
 const initMap = () => {
-
 
   // Initialiser la carte
   map.value = L.map('map').setView([47.35, 0.79], 13)
@@ -130,14 +130,10 @@ const drawSlopeColors = (gpx: any) => {
       if (latlngs.length < 2) return
 
       for (let i = 0; i < latlngs.length - 1; i++) {
+        
         const p1 = latlngs[i] as any
         const p2 = latlngs[i + 1] as any
-
-        const ele1: number = p1?.meta?.ele ?? 0
-        const ele2: number = p2?.meta?.ele ?? 0
-        const dist2D = map.value!.distance(p1, p2)
-
-        const slope = dist2D > 0 ? ((ele2 - ele1) / dist2D) * 100 : 0
+        const slope = getSlopeFromGpxPoint(p1, p2);
         const color = getColorBySlope(slope)
 
         // On ne dessine que les segments non-verts pour ne pas surcharger
@@ -148,7 +144,7 @@ const drawSlopeColors = (gpx: any) => {
         })
 
         // Tooltip au clic
-        polyline.bindTooltip(`${slope.toFixed(1)}%`, { sticky: true })
+        //polyline.bindTooltip(`${slope.toFixed(1)}%`, { sticky: true })
         polyline.addTo(map.value!)
         slopeLayers.value.push(polyline)
       }
@@ -156,6 +152,44 @@ const drawSlopeColors = (gpx: any) => {
   })
 }
 
+const getSlopeFromGpxPoint = (p1: any, p2: any) => {
+  if (!p1 || !p2 || !map.value) return 0
+  const ele1: number = p1?.meta?.ele ?? 0
+  const ele2: number = p2?.meta?.ele ?? 0
+  const dist2D = map.value.distance(p1, p2)
+
+  return dist2D > 0 ? ((ele2 - ele1) / dist2D) * 100 : 0
+}
+
+const getClosestGpxPointFromCoordonnee = (coord: L.LatLng): L.LatLng | null => {
+  if (!map.value || !gpxLayer.value) return null
+
+  let closestPoint: L.LatLng | null = null
+  let closestDistance = Infinity
+
+  const findInLayer = (layer: any) => {
+    if (layer.getLatLngs) {
+      const latlngs = layer.getLatLngs()
+      // Gérer les structures imbriquées d'un GPX (tracks/segments)
+      const points = Array.isArray(latlngs[0]) ? latlngs.flat(2) : latlngs
+      
+      points.forEach((p: any) => {
+        if (!p) return
+        const distance = map.value!.distance(coord, p)
+        if (distance < closestDistance) {
+          closestDistance = distance
+          closestPoint = p
+        }
+      })
+    } else if (layer.eachLayer) {
+      layer.eachLayer((child: any) => findInLayer(child))
+    }
+  }
+
+  findInLayer(gpxLayer.value)
+  return closestPoint
+}
+ 
 const drawPath = () => {
   if (!map.value) return
   
@@ -174,34 +208,33 @@ const drawPath = () => {
 
 const createAndDrawSegment = async (startPoint: L.LatLng, endPoint: L.LatLng) => {
   try {
-    // Récupérer les élévations
-    const coords = `${startPoint.lat},${startPoint.lng}|${endPoint.lat},${endPoint.lng}`
-    const response = await fetch(`https://api.open-elevation.com/api/v1/lookup?locations=${coords}`)
-    const data = await response.json()
-    
-    const elevStart = data.results[0].elevation
-    const elevEnd = data.results[1].elevation
-    
-    // Calculer la pente
-    const elevDiff = elevEnd - elevStart
-    const distance = map.value!.distance(startPoint, endPoint)
-    const slope = (elevDiff / distance) * 100
+    if (!map.value) return
+
+    // Récupérer les points les plus proches sur la trace GPX
+    const startPointOnGpx = getClosestGpxPointFromCoordonnee(startPoint)
+    const endPointOnGpx = getClosestGpxPointFromCoordonnee(endPoint);
+
+    if (!startPointOnGpx || !endPointOnGpx) {
+      console.warn('Erreur lors de la création du segment: Pas de point GPX trouvé à proximité.')
+      return
+    }
+
+    const slope = getSlopeFromGpxPoint(startPointOnGpx, endPointOnGpx)
+    const distance = map.value.distance(startPoint, endPoint)
     
     // Créer l'objet segment
-    const segment: Segment = {
-      latDebut: startPoint.lat,
-      lonDebut : startPoint.lng,
-      latFin :endPoint.lat,
-      lonFin: endPoint.lng,
-      slope: slope,
-      distance: distance,
-      categorie: getCategorie(slope),
-      ranking: [15, 10, 5]
-    }
+    const segment: Segment = new Segment(
+      new Coordonnee(startPointOnGpx.lat, startPointOnGpx.lng),
+      new Coordonnee(endPointOnGpx.lat, endPointOnGpx.lng),
+      distance,
+      getCategorie(slope),
+      slope,
+      [15, 10, 5]
+    )
     
-    segments.value.push(segment); // to delete later
-    mapStore.addSegment(segment);
-    
+    segments.value.push(segment)
+    mapStore.addSegment(segment)
+  
     // Afficher le segment sur la carte
     drawSegmentOnMap(segment)
   } catch (error) {
@@ -216,8 +249,8 @@ const drawSegmentOnMap = (segment: Segment) => {
   
   L.Routing.control({
     waypoints: [
-      L.latLng(segment.latDebut, segment.lonDebut),
-      L.latLng(segment.latFin, segment.lonFin)
+      L.latLng(segment.getStart().getLat(), segment.getStart().getLng()),
+      L.latLng(segment.getEnd().getLat(), segment.getEnd().getLng())
     ],
     routeWhileDragging: false,
     show: false,

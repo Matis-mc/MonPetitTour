@@ -1,27 +1,32 @@
+import { Rider } from "./Rider";
 import { Segment } from "./Segment";
+import { SegmentResultat } from "./SegmentResultat";
 
 class TourResultat {
 
     id?: number;
     name: string;
-    code: string;
     description: string;
-    date: Date;
-    segments: Segment[];
+    segments: SegmentResultat[];
+    participants: Rider[];
+    status: string;
+    createdAt: Date;
+    updatedAt: Date;
     gpxFile?: File;
 
-    constructor(name: string, code: string, description: string, date: Date, segments: Segment[], id?: number) {
+    constructor(id: number, name: string, description: string, segments: SegmentResultat[], participants: Rider[], status: string, createdAt: Date, updatedAt: Date, gpxFile?: File) {
+        this.id = id;
         this.name = name;
-        this.code = code;
         this.description = description;
-        this.date = date;
         this.segments = segments;
-        if (id) {
-            this.id = id;
-        }
+        this.participants = participants;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.gpxFile = gpxFile;
     }
 
-    getId(): number | undefined {
+    getId(): number {
         return this.id;
     }
 
@@ -33,16 +38,32 @@ class TourResultat {
         return this.description;
     }
 
-    getDate(): Date {
-        return this.date;
-    }
-
-    getSegments(): Segment[] {
+    getSegments(): SegmentResultat[] {
         return this.segments;
     }
 
-    getGpxFile(): File {
+    getParticipants(): Rider[] {
+        return this.participants;
+    }
+
+    getStatus(): string {
+        return this.status;
+    }
+
+    getCreatedAt(): Date {
+        return this.createdAt;
+    }
+
+    getUpdatedAt(): Date {
+        return this.updatedAt;
+    }
+
+    getGpxFile(): File | undefined {
         return this.gpxFile;
+    }
+
+    setId(id: number): void {
+        this.id = id;
     }
 
     setName(name: string): void {
@@ -53,12 +74,24 @@ class TourResultat {
         this.description = description;
     }
 
-    setDate(date: Date): void {
-        this.date = date;
+    setSegments(segments: SegmentResultat[]): void {
+        this.segments = segments;
     }
 
-    setSegments(segments: Segment[]): void {
-        this.segments = segments;
+    setParticipants(participants: Rider[]): void {
+        this.participants = participants;
+    }
+
+    setStatus(status: string): void {
+        this.status = status;
+    }
+
+    setCreatedAt(createdAt: Date): void {
+        this.createdAt = createdAt;
+    }
+
+    setUpdatedAt(updatedAt: Date): void {
+        this.updatedAt = updatedAt;
     }
 
     setGpxFile(gpxFile: File): void {

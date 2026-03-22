@@ -6,19 +6,30 @@ class HttpService {
 
     async createTour(tourCreation: TourCreation) {
         console.log('Sending tour creation request:', JSON.stringify(tourCreation));
-        const formData = new FormData()
-        formData.append('name', tourCreation.name)
-        formData.append('date', tourCreation.date.toISOString())
-        formData.append('description', tourCreation.description)
-        formData.append('file', tourCreation.gpxFile)
-        formData.append('segments', tourCreation.segments)
 
         const response = await fetch(`${BASE_URL}/tours`, {
+            method: 'POST',
+            body: JSON.stringify(tourCreation),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to create tour');
+        }
+        return await response.json();
+    }
+
+    async uploadGpxFile(file: File, idTour: string) {
+        const formData = new FormData()
+        formData.append('file', file)
+
+        const response = await fetch(`${BASE_URL}/tours/${idTour}/gpx`, {
             method: 'POST',
             body: formData,
         });
         if (!response.ok) {
-            throw new Error('Failed to create tour');
+            throw new Error('Failed to upload gpx file');
         }
         return await response.json();
     }

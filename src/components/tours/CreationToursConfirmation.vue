@@ -55,7 +55,7 @@
 
         <!-- Bouton validation -->
         <button
-            @click="confirmationCreationTour()"
+            @click="emit('confirmationCreationTour')"
             class="fixed w-16 h-16 bottom-16 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-200">
             <img src="@/assets/images/icones/valider.png" alt="Continue Icon" class="inline-block w-16 h-auto"/>
         </button>
@@ -67,12 +67,9 @@ import { computed, ref } from 'vue';
 import SegmentRankinkByCategorie from '@/components/segments/SegmentRankinkByCategorie.vue';
 import { CATEGORIES, CATEGORY_NAMES } from '@/constants/categories';
 import MapComponent from '../MapComponent.vue';
-import { useRoutingService } from '@/services/routingService';
 import { useCreationTourStore } from '@/stores/CreationTourStore';
-import ApiService from '@/services/ApiService';
 
 
-const routingService = useRoutingService();
 const tourStore = useCreationTourStore();
 const categories = CATEGORY_NAMES;
 
@@ -91,10 +88,7 @@ const segmentDescente = computed(() =>
   tourStore.tourCreation.getSegments().filter(s => s.categorie === CATEGORIES.DESCENT.code)
 );
 
-const confirmationCreationTour = () => {
-    ApiService.createTour(tourStore.tourCreation).then(() => {
-        tourStore.resetTourCreation();
-    });
-    routingService.goToHome();
-};
+const emit = defineEmits(['confirmationCreationTour']);
+
+
 </script>
