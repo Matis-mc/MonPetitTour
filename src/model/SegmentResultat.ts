@@ -3,15 +3,19 @@ import { RiderTime } from "./RiderTime";
 
 class SegmentResultat {
     name: string;
+    categorie: string;
     start: Coordonnee;
     end: Coordonnee;
+    slope: number;
     points: number[];
     ranking: RiderTime[]
 
-    constructor(name: string, start: Coordonnee, end: Coordonnee, points: number[], ranking: RiderTime[]) {
+    constructor(name: string, categorie: string, start: Coordonnee, end: Coordonnee, slope: number, points: number[], ranking: RiderTime[]) {
         this.name = name;
+        this.categorie = categorie;
         this.start = start;
         this.end = end;
+        this.slope = slope;
         this.points = points;
         this.ranking = ranking;
     }
@@ -54,6 +58,22 @@ class SegmentResultat {
 
     setRanking(ranking: RiderTime[]): void {
         this.ranking = ranking;
+    }
+
+    getCategorie(): string {
+        return this.categorie;
+    }
+
+    setCategorie(categorie: string): void {
+        this.categorie = categorie;
+    }
+
+    getSlope(): number {
+        return this.slope;
+    }
+
+    setSlope(slope: number): void {
+        this.slope = slope;
     }
 }
 

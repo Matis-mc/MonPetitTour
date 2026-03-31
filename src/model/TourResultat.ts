@@ -1,6 +1,7 @@
 import { Rider } from "./Rider";
 import { Segment } from "./Segment";
 import { SegmentResultat } from "./SegmentResultat";
+import { TourRankings } from "./TourRankings";
 
 class TourResultat {
 
@@ -8,18 +9,18 @@ class TourResultat {
     name: string;
     description: string;
     segments: SegmentResultat[];
-    participants: Rider[];
+    ranking: TourRankings;
     status: string;
     createdAt: Date;
     updatedAt: Date;
     gpxFile?: File;
 
-    constructor(id: number, name: string, description: string, segments: SegmentResultat[], participants: Rider[], status: string, createdAt: Date, updatedAt: Date, gpxFile?: File) {
+    constructor(id: number, name: string, description: string, segments: SegmentResultat[], ranking: TourRankings, status: string, createdAt: Date, updatedAt: Date, gpxFile?: File) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.segments = segments;
-        this.participants = participants;
+        this.ranking = ranking;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -42,8 +43,8 @@ class TourResultat {
         return this.segments;
     }
 
-    getParticipants(): Rider[] {
-        return this.participants;
+    getRanking(): TourRankings {
+        return this.ranking;
     }
 
     getStatus(): string {
@@ -78,8 +79,8 @@ class TourResultat {
         this.segments = segments;
     }
 
-    setParticipants(participants: Rider[]): void {
-        this.participants = participants;
+    setRanking(ranking: TourRankings): void {
+        this.ranking = ranking;
     }
 
     setStatus(status: string): void {

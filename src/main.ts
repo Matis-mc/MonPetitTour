@@ -13,6 +13,9 @@ import SegmentsRankingView from './views/tours/SegmentsRankingView.vue'
 import SearchTourView from './views/participation/SearchTourView.vue'
 import ActiviteeView from './views/participation/ActiviteeView.vue'
 import ResultView from './views/participation/ResultView.vue'
+import LoginView from './views/LoginView.vue'
+import StravaCallbackView from './views/StravaCallbackView.vue'
+import { useAuthStore } from './stores/AuthStore'
 
 const pinia = createPinia();
 
@@ -58,8 +61,35 @@ const router = createRouter({
       path: '/tour/result',
       name: 'result',
       component: ResultView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/auth/callback',
+      name: 'strava-callback',
+      component: StravaCallbackView
     }
   ]
+})
+
+router.beforeEach((to, _, next) => {
+  const authStore = useAuthStore()
+  const publicPages = ['/login', '/auth/callback']
+  const authRequired = !publicPages.includes(to.path)
+
+  if (authRequired && !authStore.isAuthenticated) {
+    return next('/login')
+  }
+
+  // Si on est déjà authentifié et qu'on va sur login, on redirige vers l'accueil
+  if (authStore.isAuthenticated && to.path === '/login') {
+    return next('/')
+  }
+
+  next()
 })
 
 const app = createApp(App)

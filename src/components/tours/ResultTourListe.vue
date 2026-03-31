@@ -1,9 +1,9 @@
 <template>
     <div class="flex flex-col gap-2">
-        <ResultTourListElement v-for="tour in tours" :key="tour.code" :tour="tour" />
+        <ResultTourListElement v-for="tour in tours" :key="tour.getId()" :tour="tour" />
     </div>
-    <div v-if="tours.length === 0">
-        <p>Aucun tour trouvé</p>
+    <div v-if="tours.length === 0" class="flex items-center w-full justify-center">
+        <p class="text-stone-500 a ">Aucun tour trouvé</p>
     </div>
 </template>
 

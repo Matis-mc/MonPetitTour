@@ -1,8 +1,8 @@
 <template>
   <div class="w-full h-full flex items-center justify-center" :style="{ backgroundImage: `url(${bgImage})` }">
     <div class="bg-stone-100 w-2/3 min-w-80 flex flex-col items-center rounded-2xl shadow-md p-4 m-2">
-      <InputText :modelValue="tourStore.tourCreation.name" placeholder="Nom du tour"/>
-      <InputText :modelValue="tourStore.tourCreation.description" placeholder="Description"/>
+      <InputText v-model="tourStore.tourCreation.name" placeholder="Nom du tour"/>
+      <InputText v-model="tourStore.tourCreation.description" placeholder="Description"/>
       <FileInputComponent :fileType="'.gpx'" :onFileLoaded="loadGPXFile" />
     </div>
   </div>

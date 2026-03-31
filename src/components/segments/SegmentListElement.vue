@@ -39,9 +39,11 @@
     </div>
 </template>
 <script setup lang="ts">
+import { getIconeFromCategory } from '@/constants/categories';
 import { Segment } from '@/model/Segment';
 import { useMapStore } from '@/stores/MapStore';
 import { ref } from 'vue';
+
 import descenteIcon from '@/assets/images/icones/descente.png';
 import montagneIcon from '@/assets/images/icones/montagne.png';
 import sprintIcon from '@/assets/images/icones/sprint.png';
@@ -60,19 +62,6 @@ const props = defineProps({
     required: true
   }
 });
-
-const getIconeFromCategory = (category: string): string => {
-    switch (category) {
-        case 'D':
-            return descenteIcon;
-        case 'M':
-            return montagneIcon;
-        case 'S':
-            return sprintIcon;
-        default:
-            return generalIcon;
-    }
-};
 
 const selectCategory = (category: string) => {
     mapStore.updateSegmentCategory(props.index, category);

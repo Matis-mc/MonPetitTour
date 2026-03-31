@@ -11,17 +11,23 @@ import { onMounted, ref } from 'vue';
 import bgImage from '@/assets/images/background/background-light.png';
 import { TourResultat } from '@/model/TourResultat';
 import ResultTourListe from '@/components/tours/ResultTourListe.vue';
+import { mapToTourResultat } from '@/mapper/TourResultatMapper';
 
 let tours = ref([] as TourResultat[]);
 
 onMounted(() => {
     ApiService.getTours().then(
         (toursFetch) => {
-            console.log(toursFetch);
-            tours.value = toursFetch;
+            let tourResultats = [] as TourResultat[];
+            toursFetch.forEach((t: any) => {
+                tourResultats.push(mapToTourResultat(t));
+                console.log("Tour récupéré : " , t);
+            });
+            tours.value = tourResultats;
         }
     );
 });
-    
+
+
 
 </script>

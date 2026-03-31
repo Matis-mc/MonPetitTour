@@ -6,15 +6,15 @@ class Segment {
     distance: number;
     categorie: string;
     slope: number;
-    ranking?: number[]
+    points?: number[]
 
-    constructor(start: Coordonnee, end: Coordonnee, distance: number, categorie: string, slope: number, ranking: number[]) {
+    constructor(start: Coordonnee, end: Coordonnee, distance: number, categorie: string, slope: number, points: number[]) {
         this.start = start;
         this.end = end;
         this.distance = distance;
         this.categorie = categorie;
         this.slope = slope;
-        this.ranking = ranking;
+        this.points = points;
     }
 
     getStart(): Coordonnee {
@@ -37,8 +37,8 @@ class Segment {
         return this.slope;
     }
 
-    getRanking(): number[] {
-        return this.ranking;
+    getPoints(): number[] {
+        return this.points;
     }
 
     setStart(start: Coordonnee): void {
@@ -61,8 +61,8 @@ class Segment {
         this.slope = slope;
     }
 
-    setRanking(ranking: number[]): void {
-        this.ranking = ranking;
+    setPoints(points: number[]): void {
+        this.points = points;
     }
 }
 

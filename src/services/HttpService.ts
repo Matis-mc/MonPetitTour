@@ -1,90 +1,92 @@
+import axios from 'axios'
 import { TourCreation } from "@/model/TourCreation";
+import { useAuthStore } from '@/stores/AuthStore';
 
-const BASE_URL = 'http://localhost:8080/api';
+const BASE_URL = 'https://mpt-z3u7.onrender.com/api';
+
+const apiClient = axios.create({
+    baseURL: BASE_URL,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+});
+
+// Request interceptor for adding the bearer token
+apiClient.interceptors.request.use(
+    (config) => {
+        const authStore = useAuthStore();
+        if (authStore.accessToken) {
+            config.headers.Authorization = `Bearer ${authStore.accessToken}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
+
+// Response interceptor for handling 401 and refreshing the token
+apiClient.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        const originalRequest = error.config;
+        const authStore = useAuthStore();
+
+        if (error.response?.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+            try {
+                const newAccessToken = await authStore.refreshAccessToken();
+                if (newAccessToken) {
+                    originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+                    return apiClient(originalRequest);
+                }
+            } catch (refreshError) {
+                authStore.clearTokens();
+                window.location.href = '/login';
+                return Promise.reject(refreshError);
+            }
+        }
+        return Promise.reject(error);
+    }
+);
 
 class HttpService {
 
     async createTour(tourCreation: TourCreation) {
         console.log('Sending tour creation request:', JSON.stringify(tourCreation));
-
-        const response = await fetch(`${BASE_URL}/tours`, {
-            method: 'POST',
-            body: JSON.stringify(tourCreation),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error('Failed to create tour');
-        }
-        return await response.json();
+        const response = await apiClient.post('/tours', tourCreation);
+        return response.data;
     }
 
     async uploadGpxFile(file: File, idTour: string) {
         const formData = new FormData()
         formData.append('file', file)
 
-        const response = await fetch(`${BASE_URL}/tours/${idTour}/gpx`, {
-            method: 'POST',
-            body: formData,
+        const response = await apiClient.post(`/tours/${idTour}/gpx`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         });
-        if (!response.ok) {
-            throw new Error('Failed to upload gpx file');
-        }
-        return await response.json();
+        return response.data;
     }
 
     async getTours() {
-        const response = await fetch(`${BASE_URL}/tours`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error('Failed to fetch tours');
-        }
-        return await response.json();
+        const response = await apiClient.get('/tours');
+        return response.data;
     }
 
     async getTourByCode(code: string) {
-        const response = await fetch(`${BASE_URL}/tours/${code}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error('Failed to fetch tour by code');
-        }
-        return await response.json();
+        const response = await apiClient.get(`/tours/${code}`);
+        return response.data;
     }
 
     async getStravaActivities() {
-        const response = await fetch(`${BASE_URL}/strava/activities`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error('Failed to fetch strava activities');
-        }
-        return await response.json();
+        const response = await apiClient.get('/strava/activities');
+        return response.data;
     }
 
     async loadResultTourFromStrava(activityId: string, codeTour: string) {
-        const response = await fetch(`${BASE_URL}/strava/activities/${activityId}/${codeTour}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error('Failed to fetch strava activities');
-        }
-        return await response.json();
+        const response = await apiClient.get(`/strava/activities/${activityId}/${codeTour}`);
+        return response.data;
     }
 }
 
-export default new HttpService();   
+export default new HttpService();
