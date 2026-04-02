@@ -9,7 +9,9 @@ class TourCreation {
     description: string;
     date: Date;
     segments: Segment[];
+    status: string;
     gpxFile?: File;
+    participants?: number[];
 
     constructor(name: string, description: string, date: Date, segments: Segment[], id?: number) {
         this.name = name;
@@ -17,6 +19,8 @@ class TourCreation {
         this.description = description;
         this.date = date;
         this.segments = segments;
+        this.status = "upcoming";
+        this.participants = [];
         if (id) {
             this.id = id;
         }

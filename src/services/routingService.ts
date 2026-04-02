@@ -32,8 +32,12 @@ class RoutingService {
         this.router.push('/tour/result');
     }
 
-    goToRanking() {
-        this.router.push('/tour/ranking');
+    goToCategorieRanking() {
+        this.router.push('/tour/ranking/categorie');
+    }
+
+    goToSegmentRanking() {
+        this.router.push('/tour/ranking/segment');
     }
 
     gotoMap() {

@@ -35,15 +35,15 @@ const segments = computed(() =>
 );
 
 const segmentMontee = computed(() => 
-  mapStore.getSegments.filter(s => s.categorie === CATEGORIES.MOUNTAIN.code)
+  mapStore.getSegments.filter(s => s.category === CATEGORIES.MOUNTAIN.code)
 );
 
 const segmentPlat = computed(() => 
-  mapStore.getSegments.filter(s => s.categorie === CATEGORIES.FLAT.code)
+  mapStore.getSegments.filter(s => s.category === CATEGORIES.FLAT.code)
 );
 
 const segmentDescente = computed(() => 
-  mapStore.getSegments.filter(s => s.categorie === CATEGORIES.DESCENT.code)
+  mapStore.getSegments.filter(s => s.category === CATEGORIES.DESCENT.code)
 );
 
 </script>    

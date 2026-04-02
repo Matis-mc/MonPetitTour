@@ -6,19 +6,19 @@ import generalIcon from '@/assets/images/icones/general.png';
 export const CATEGORIES = {
   GENERAL: {
     code: 'G',
-    name: 'Général'
+    name: 'general'
   },
   MOUNTAIN: {
     code: 'M',
-    name: 'Montagne'
+    name: 'mountain'
   },
   FLAT: {
     code: 'P',
-    name: 'Plat'
+    name: 'sprint'
   },
   DESCENT: {
     code: 'D',
-    name: 'Descente'
+    name: 'descent'
   }
 } as const;
 

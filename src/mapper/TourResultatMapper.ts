@@ -19,6 +19,15 @@ export function mapToTourResultat(t: any): TourResultat {
         new TourRankings(rankingGeneral, rankingMountain, rankingSprint, rankingDescent), t.status, t.created_at, t.updated_at, t.gpx_content);
 }
 
+export function mapToTourResultatWithoutRankings(t: any): TourResultat {
+    let segments = [] as SegmentResultat[];
+    t.segments.forEach((s: any) => {
+        segments.push(mapToSegmentResultatWithoutRankings(s));
+    });
+    return new TourResultat(t._id, t.name, t.description, segments,
+        new TourRankings([], [], [], []), t.status, t.created_at, t.updated_at, t.gpx_content);
+}
+
 const mapToSegmentResultat = (s: any) => {
     let riderTimes = [] as RiderTime[];
     s.ranking.forEach((r: any) => {
@@ -27,9 +36,14 @@ const mapToSegmentResultat = (s: any) => {
     return new SegmentResultat(s.name, s.categorie, s.start, s.end, s.slope, s.points, riderTimes);
 }
 
+const mapToSegmentResultatWithoutRankings = (s: any) => {
+    return new SegmentResultat(s.name, s.categorie, s.start, s.end, s.slope, s.points, []);
+}
+
 const mapToRiderTime = (r: any) => {
+    console.log("mapToRiderTime " + JSON.stringify(r));
     return new RiderTime(
-        new Rider(r.user.id, r.user.firstName, r.user.lastName, r.user.profile_image), r.time);
+        new Rider(r.user.id, r.user.firstname, r.user.lastname, r.user.profile_image), r.time);
 }
 
 const mapToRankingArray = (r: any) => {

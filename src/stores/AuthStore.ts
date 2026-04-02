@@ -11,11 +11,12 @@ export const useAuthStore = defineStore('auth', () => {
 
     const isAuthenticated = computed(() => !!accessToken.value)
 
-    function setTokens(access: string, refresh: string) {
+    function setTokens(access: string, refresh: string, user: any) {
         accessToken.value = access
         refreshToken.value = refresh
         localStorage.setItem('access_token', access)
         localStorage.setItem('refresh_token', refresh)
+        localStorage.setItem('mpt_user', JSON.stringify(user))
     }
 
     function clearTokens() {
@@ -24,6 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
         user.value = null
         localStorage.removeItem('access_token')
         localStorage.removeItem('refresh_token')
+        localStorage.removeItem('mpt_user')
     }
 
     async function login() {
@@ -44,9 +46,11 @@ export const useAuthStore = defineStore('auth', () => {
 
             const stravaUrl = `https://www.strava.com/oauth/token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}&grant_type=authorization_code`
             const response = await axios.post(stravaUrl)
-            const { access_token, refresh_token, user: userData } = response.data
-            setTokens(access_token, refresh_token)
-            user.value = userData
+            const { access_token, refresh_token, athlete } = response.data
+            console.log("Data strava : ", response.data);
+            setTokens(access_token, refresh_token, athlete)
+            user.value = athlete
+            console.log("User", user.value);
             return true
         } catch (error) {
             console.error('Failed to handle Strava callback', error)
@@ -80,6 +84,13 @@ export const useAuthStore = defineStore('auth', () => {
         window.location.href = '/'
     }
 
+    function getUser() {
+        const user = localStorage.getItem('mpt_user')
+        if (user) {
+            return JSON.parse(user)
+        }
+    }
+
     return {
         accessToken,
         refreshToken,
@@ -90,6 +101,7 @@ export const useAuthStore = defineStore('auth', () => {
         login,
         handleCallback,
         refreshAccessToken,
-        logout
+        logout,
+        getUser
     }
 })

@@ -1,7 +1,8 @@
 <template>
     <div class="flex bg-stone-100 flex-col mx-auto justify-items-center"
     :style="{ backgroundImage: `url(${bgImage})` }">
-    <ResultTourListe :tours="tours" />
+    <ResultTourListe v-if="!loading" :tours="tours"/>
+    <LoaderComponent :message="'Récupération des tours...'" v-if="loading"/>
   </div>
 </template>
 
@@ -11,23 +12,31 @@ import { onMounted, ref } from 'vue';
 import bgImage from '@/assets/images/background/background-light.png';
 import { TourResultat } from '@/model/TourResultat';
 import ResultTourListe from '@/components/tours/ResultTourListe.vue';
-import { mapToTourResultat } from '@/mapper/TourResultatMapper';
+import { mapToTourResultat, mapToTourResultatWithoutRankings } from '@/mapper/TourResultatMapper';
+import LoaderComponent from '@/components/generics/LoaderComponent.vue';
 
 let tours = ref([] as TourResultat[]);
+const loading = ref(false);
 
 onMounted(() => {
+    loading.value = true;
     ApiService.getTours().then(
         (toursFetch) => {
             let tourResultats = [] as TourResultat[];
             toursFetch.forEach((t: any) => {
-                tourResultats.push(mapToTourResultat(t));
+                if(t.rankings) {
+                    tourResultats.push(mapToTourResultat(t));
+                } else {
+                    tourResultats.push(mapToTourResultatWithoutRankings(t));
+                }
                 console.log("Tour récupéré : " , t);
             });
             tours.value = tourResultats;
         }
-    );
+    ).finally(() => {
+        loading.value = false;
+    });
 });
-
 
 
 </script>

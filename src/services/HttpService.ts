@@ -79,12 +79,12 @@ class HttpService {
     }
 
     async getStravaActivities() {
-        const response = await apiClient.get('/strava/activities');
+        const response = await apiClient.get('/activities');
         return response.data;
     }
 
-    async loadResultTourFromStrava(activityId: string, codeTour: string) {
-        const response = await apiClient.get(`/strava/activities/${activityId}/${codeTour}`);
+    async loadResultTourFromStrava(activityId: string, tourId: string) {
+        const response = await apiClient.get(`/tour/${tourId}/activity/${activityId}`);
         return response.data;
     }
 }

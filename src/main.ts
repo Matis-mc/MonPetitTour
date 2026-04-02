@@ -9,10 +9,11 @@ import UploadGPXView from './views/tours/UploadGPXView.vue'
 import ConfirmationTourView from './views/tours/ConfirmationTourView.vue'
 import { createPinia } from 'pinia'
 import MapView from './views/MapView.vue'
-import SegmentsRankingView from './views/tours/SegmentsRankingView.vue'
 import SearchTourView from './views/participation/SearchTourView.vue'
 import ActiviteeView from './views/participation/ActiviteeView.vue'
 import ResultView from './views/participation/ResultView.vue'
+import CategorieRankingView from './views/participation/CategorieRankingView.vue'
+import SegmentRankingView from './views/participation/SegmentRankingView.vue'
 import LoginView from './views/LoginView.vue'
 import StravaCallbackView from './views/StravaCallbackView.vue'
 import { useAuthStore } from './stores/AuthStore'
@@ -38,9 +39,14 @@ const router = createRouter({
       component: MapView
     },
     {
-      path: '/tour/ranking',
-      name: 'segmentsRanking',
-      component: SegmentsRankingView
+      path: '/tour/ranking/categorie',
+      name: 'rankingcategorie',
+      component: CategorieRankingView
+    },
+    {
+      path: '/tour/ranking/segment',
+      name: 'segmentranking',
+      component: SegmentRankingView
     },
     {
       path: '/tour/confirmation',

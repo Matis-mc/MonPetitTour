@@ -17,11 +17,11 @@
 </template>
 
 <script setup lang="ts">
-import { Ranking } from '@/model/Ranking';
 import { TourResultat } from '@/model/TourResultat';
 import { useAuthStore } from '@/stores/AuthStore';
 import { onMounted, ref } from 'vue';
 import Result from '../resultats/Result.vue';
+import RankingService from '@/services/RankingService';
 
 const authStore = useAuthStore();
 const user = ref(authStore.user);
@@ -35,36 +35,9 @@ const props = defineProps({
 });
 
 onMounted(() => {
-    getUserResult();
+
+    userResult.value = RankingService.getUserResult(props.tour, user);
+
 })
-
-
-const getUserResult = () => {
-
-    let generalRank = getUserRank(props.tour.getRanking().getGeneral())
-    let sprintRank = getUserRank(props.tour.getRanking().getSprint())
-    let mountainRank = getUserRank(props.tour.getRanking().getMountain())
-    let descentRank = getUserRank(props.tour.getRanking().getDescent())
-
-    let allResults = [
-        { "category": "G", "rank": generalRank },
-        { "category": "S", "rank": sprintRank },
-        { "category": "M", "rank": mountainRank },
-        { "category": "D", "rank": descentRank }
-    ]
-
-    console.log("All user result", allResults);
-
-    userResult.value = allResults.filter(r => r.rank != null);
-}
-
-const getUserRank = (ranks: Ranking[]) => {
-    if(ranks === null || ranks === undefined) {
-        return null;
-    }
-    // todo : à remettre quand ajout suer ok
-    //return ranks.find((r: Ranking) => r.idUser === user.value?.id);
-    return ranks[0];
-}
 
 </script>

@@ -4,17 +4,21 @@ class Segment {
     start: Coordonnee;
     end: Coordonnee;
     distance: number;
-    categorie: string;
+    category: string;
     slope: number;
-    points?: number[]
+    points?: number[];
+    name?: string;
+    ranking?: number[];
 
-    constructor(start: Coordonnee, end: Coordonnee, distance: number, categorie: string, slope: number, points: number[]) {
+    constructor(start: Coordonnee, end: Coordonnee, distance: number, category: string, slope: number, points: number[]) {
         this.start = start;
         this.end = end;
         this.distance = distance;
-        this.categorie = categorie;
+        this.category = category;
         this.slope = slope;
         this.points = points;
+        this.name = "segment";
+        this.ranking = [];
     }
 
     getStart(): Coordonnee {
@@ -29,8 +33,8 @@ class Segment {
         return this.distance;
     }
 
-    getCategorie(): string {
-        return this.categorie;
+    getCategory(): string {
+        return this.category;
     }
 
     getSlope(): number {
@@ -53,8 +57,8 @@ class Segment {
         this.distance = distance;
     }
 
-    setCategorie(categorie: string): void {
-        this.categorie = categorie;
+    setCategory(category: string): void {
+        this.category = category;
     }
 
     setSlope(slope: number): void {
@@ -67,3 +71,7 @@ class Segment {
 }
 
 export { Segment };
+
+function getCategoryByCode(category: string): string {
+    throw new Error("Function not implemented.");
+}

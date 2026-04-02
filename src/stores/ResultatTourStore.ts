@@ -3,17 +3,14 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 export const useResultatTourStore = defineStore('ResultatTour', () => {
-    const tourResultat = ref(new TourResultat('', '', '', new Date(), []));
+    const tourResultat = ref();
 
     function setTourResultat(resultat: TourResultat) {
-        tourResultat.value.name = resultat.name;
-        tourResultat.value.description = resultat.description;
-        tourResultat.value.date = resultat.date;
-        tourResultat.value.segments = resultat.segments;
+        tourResultat.value = resultat;
     }
 
     function resetTourResultat() {
-        tourResultat.value = new TourResultat('', '', '', new Date(), []);
+        tourResultat.value = null;
     }
 
     return { tourResultat, setTourResultat, resetTourResultat };

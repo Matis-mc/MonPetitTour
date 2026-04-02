@@ -1,5 +1,6 @@
 <template>
-    <div id="map" class="grid grid-cols-3 gap-4 items-center justify-items-center">
+
+    <div class="p-4 grid grid-cols-6 gap-4 items-center justify-items-center">
         <h3 class="text-lg font-medium mb-2">{{ props.index }}</h3>
         <div class="text-center">
             <p class="text-m">↔️ {{ props.segment.distance.toFixed(2) }} m</p>
@@ -8,7 +9,7 @@
         <div class="relative">
             <img 
                 @click="isPopupOpen = true"
-                :src="getIconeFromCategory(props.segment.categorie)" 
+                :src="getIconeFromCategory(props.segment.category)" 
                 alt="Segment Image" 
                 class="w-16 h-16 rounded-md cursor-pointer hover:opacity-80"/>
             

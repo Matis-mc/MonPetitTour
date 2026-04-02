@@ -11,26 +11,38 @@ import ApiService from '@/services/ApiService';
 import { useRoutingService } from '@/services/routingService';
 import { onMounted, ref } from 'vue';
 import bgImage from '@/assets/images/background/background-light.png';
+import { useResultatTourStore } from '@/stores/ResultatTourStore';
+import { mapToTourResultat } from '@/mapper/TourResultatMapper';
 
+const loading = ref(false);
 
 const activitees = ref([] as StravaActivitee[]);
-const routingService = useRoutingService()
+const routingService = useRoutingService();
+const userResultat = useResultatTourStore();
 
 onMounted(() => {
+    loading.value = true;
     ApiService.getStravaActivities().then(
         (activiteesFetch) => {
             activitees.value = activiteesFetch;
         }
-    );
+    ).finally(() => {
+        loading.value = false;
+    });
 });
 
 const onSelect = (activitee: StravaActivitee) => {
+    loading.value = true;
+    console.log("Activity : ", activitee);
     ApiService.loadResultTourFromStrava(activitee.id, '123').then(
         (resultat) => {
             console.log(resultat);
+            userResultat.setTourResultat(mapToTourResultat(resultat));
             routingService.goToResult();
         }
-    );
+    ).finally(() => {
+        loading.value = false;
+    });
 };
 
 </script>
