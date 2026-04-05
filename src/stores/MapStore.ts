@@ -25,6 +25,9 @@ export const useMapStore = defineStore('map', {
         clearSegments() {
             this.segments = [];
         },
+        removeLastSegment() {
+            this.segments.pop();
+        },
         updateSegmentCategory(index: number, category: string) {
             if (index >= 0 && index < this.segments.length) {
                 this.segments[index].category = category;

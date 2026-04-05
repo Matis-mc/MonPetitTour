@@ -1,4 +1,7 @@
+import { getCategorie } from "@/utils/GpxUtils";
 import { Coordonnee } from "./Coordonnee";
+import L from 'leaflet'
+
 
 class Segment {
     start: Coordonnee;
@@ -19,6 +22,17 @@ class Segment {
         this.points = points;
         this.name = "segment";
         this.ranking = [];
+    }
+
+    static createFromMap(startPoint: L.LatLng, endPoint: L.LatLng, distance: number, slope: number) {
+        return new Segment(
+            new Coordonnee(startPoint.lat, startPoint.lng),
+            new Coordonnee(endPoint.lat, endPoint.lng),
+            distance,
+            getCategorie(slope),
+            slope,
+            [15, 10, 5]
+        )
     }
 
     getStart(): Coordonnee {

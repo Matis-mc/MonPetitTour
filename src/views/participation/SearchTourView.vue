@@ -1,5 +1,5 @@
 <template>
-    <div class="flex w-2/3 min-w-80 flex-col items-center justify-center" :style="{ backgroundImage: `url(${bgImage})` }">
+    <div class="flex w-2/3 min-w-80 flex-col items-center justify-center bg-cover bg-center bg-no-repeat" :style="{ backgroundImage: `url(${bgImage})` }">
         <SearchTourComponent @searchTour="fetchTour"/>
     </div>
 </template>

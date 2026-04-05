@@ -1,7 +1,11 @@
 <template>
   <div>
+    <button class="bg-white rounded-full p-2 fixed top-30 left-4 z-40 shadow-md hover:bg-stone-100 transition-colors" @click="deleteLastSegment()">
+      <img src="@/assets/images/icones/undo.png" alt="Annuler" class="w-8 h-8" />
+    </button>
     <div id="map" class="w-full h-full rounded-lg shadow-inner"></div>
   </div>
+
 </template>
 
 <script setup lang="ts">
@@ -13,8 +17,7 @@ import 'leaflet-routing-machine'
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
 import { useMapStore } from '../stores/MapStore'
 import { Segment } from '@/model/Segment'
-import { CATEGORIES } from '@/constants/categories'
-import { Coordonnee } from '@/model/Coordonnee'
+import { getColorBySlope } from '@/utils/GpxUtils'
 
 
 // State
@@ -24,6 +27,7 @@ const segments = ref<Segment[]>([])
 const mapStore = useMapStore()
 const gpxLayer = ref<any>(null)
 const slopeLayers = ref<L.Polyline[]>([])
+const routingControls = ref<any[]>([])
 
 const gpxFile = computed(() => mapStore.getGpxFile)
 
@@ -45,6 +49,16 @@ watch(
 
   }
 )
+
+// Surveiller la suppression de segments dans le store pour synchroniser la carte
+watch(() => mapStore.getSegments.length, (newLength, oldLength) => {
+    if (newLength < oldLength) {
+        const lastControl = routingControls.value.pop();
+        if (lastControl && map.value) {
+            map.value.removeControl(lastControl);
+        }
+    }
+});
 
 onBeforeUnmount(() => {
   if (map.value) {
@@ -90,6 +104,10 @@ const loadGPX = (file: File) => {
   // Supprimer les anciennes polylines colorées
   slopeLayers.value.forEach((l: L.Polyline) => map.value!.removeLayer(l))
   slopeLayers.value = []
+  
+  // Supprimer les anciens segments tracés
+  routingControls.value.forEach((c: any) => map.value!.removeControl(c))
+  routingControls.value = []
 
   const url = URL.createObjectURL(file)
 
@@ -223,14 +241,7 @@ const createAndDrawSegment = async (startPoint: L.LatLng, endPoint: L.LatLng) =>
     const distance = map.value.distance(startPoint, endPoint)
     
     // Créer l'objet segment
-    const segment: Segment = new Segment(
-      new Coordonnee(startPointOnGpx.lat, startPointOnGpx.lng),
-      new Coordonnee(endPointOnGpx.lat, endPointOnGpx.lng),
-      distance,
-      getCategorie(slope),
-      slope,
-      [15, 10, 5]
-    )
+    const segment: Segment = Segment.createFromMap(startPointOnGpx, endPointOnGpx, distance, slope);
     
     segments.value.push(segment)
     mapStore.addSegment(segment)
@@ -247,36 +258,27 @@ const drawSegmentOnMap = (segment: Segment) => {
   
   const color = getColorBySlope(Math.abs(segment.slope))
   
-  L.Routing.control({
+  const control = L.Routing.control({
     waypoints: [
       L.latLng(segment.getStart().getLat(), segment.getStart().getLng()),
       L.latLng(segment.getEnd().getLat(), segment.getEnd().getLng())
     ],
-    routeWhileDragging: false,
+    routeWhileDragging: true,
     show: false,
     addWaypoints: false,
     lineOptions: {
       styles: [{ color: color, opacity: 0.8, weight: 5 }]
     }
   }).addTo(map.value)
+
+  routingControls.value.push(control)
 }
 
-
-const getColorBySlope = (slope: number): string => {
-  if (slope > 10)        return '#1a1a1a'  // noir        > +10%
-  if (slope > 5)         return '#ef4444'  // rouge    +5% à +10%
-  if (slope > 3)         return '#eab308'  // jaune    +3% à  +5%
-  if (slope >= -3)       return '#22c55e'  // vert     -3% à  +3%
-  if (slope >= -5)       return '#eab308'  // jaune    -5% à  -3%
-  if (slope >= -10)      return '#ef4444'  // rouge   -10% à  -5%
-  return '#1a1a1a'                         // noir        < -10%
+const deleteLastSegment = () => {
+  mapStore.removeLastSegment();
+  // La synchronisation de la carte se fait via le watcher sur mapStore.getSegments.length
 }
 
-const getCategorie = (slope: number): string => {
-  if (slope < -3) return CATEGORIES.DESCENT.code
-  if (slope > 3) return CATEGORIES.MOUNTAIN.code
-  return CATEGORIES.FLAT.code
-}
 
 </script>
 
