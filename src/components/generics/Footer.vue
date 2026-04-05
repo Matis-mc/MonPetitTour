@@ -1,19 +1,19 @@
 <template>
-    <div class="flex grid grid-cols-5 w-full p-3">
-        <div class="col-span-1" @click="routingService.goToCreateTour()">
+    <div class="md:rounded-xl grid grid-cols-5 w-full md:max-w-md p-3">
+        <div class="col-span-1 flex justify-center items-center" @click="routingService.goToCreateTour()">
             <img src="@/assets/images/icones/creation-tour.png" 
              alt="Logo" class="w-10 h-10">
         </div>
-        <div class="col-span-1" @click="routingService.goToRejoindreTour()">
+        <div class="col-span-1 flex justify-center items-center" @click="routingService.goToRejoindreTour()">
             <img src="@/assets/images/icones/participation-tour.png" alt="Logo" class="w-10 h-10">
         </div>
-        <div class="col-span-1" @click="routingService.goToHome()">
+        <div class="col-span-1 flex justify-center items-center" @click="routingService.goToHome()">
             <img src="@/assets/images/icones/accueil.png" alt="Logo" class="w-10 h-10">
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1 flex justify-center items-center">
             <img src="@/assets/images/icones/trophee.png" alt="Logo" class="w-10 h-10">
         </div>
-        <div class="col-span-1">
+        <div class="col-span-1 flex justify-center items-center">
             <img src="@/assets/images/icones/statistiques.png" alt="Logo" class="w-10 h-10">
         </div>
     </div>

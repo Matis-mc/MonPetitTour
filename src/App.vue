@@ -9,8 +9,9 @@
         <component :is="Component" class="h-full w-full" />
       </RouterView>
     </main>
-
-    <Footer />
+    <footer class="flex justify-center bg-transparent">
+      <Footer />
+    </footer>
   </div> 
 </template>
 

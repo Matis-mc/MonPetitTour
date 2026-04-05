@@ -1,5 +1,5 @@
 <template>
-    <div class="flex bg-neutral-50 flex-col mx-auto justify-items-center">
+    <div class="flex bg-neutral-50 flex-col mx-auto justify-items-center md:w-1/4">
     <ResultTourListe v-if="!loading" :tours="tours"/>
     <LoaderComponent :message="'Récupération des tours...'" v-if="loading"/>
   </div>

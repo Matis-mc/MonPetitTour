@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full flex items-center justify-center" :style="{ backgroundImage: `url(${carteImage})` }">
-    <div class=" bg-white w-2/3 min-w-80 flex flex-col items-center rounded-2xl shadow-md p-4 m-2">
+  <div class="w-full h-full flex items-center justify-center bg-cover bg-center bg-no-repeat" :style="{ backgroundImage: `url(${carteImage})` }">
+    <div class=" bg-white w-2/3 md:w-1/5 min-w-80 flex flex-col items-center rounded-2xl shadow-md p-4 m-2">
       <h2 class="text-2xl font-bold mb-4">Tracez votre Etape</h2>
       <InputText v-model="tourStore.tourCreation.name" placeholder="Nom du tour"/>
       <InputText v-model="tourStore.tourCreation.description" placeholder="Description"/>
