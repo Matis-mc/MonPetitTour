@@ -13,7 +13,7 @@ export const CATEGORIES = {
     name: 'mountain'
   },
   FLAT: {
-    code: 'P',
+    code: 'S',
     name: 'sprint'
   },
   DESCENT: {

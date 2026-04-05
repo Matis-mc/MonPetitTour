@@ -1,6 +1,5 @@
 <template>
-    <div class="flex bg-stone-100 flex-col mx-auto justify-items-center"
-    :style="{ backgroundImage: `url(${bgImage})` }">
+    <div class="flex bg-neutral-50 flex-col mx-auto justify-items-center">
     <ResultTourListe v-if="!loading" :tours="tours"/>
     <LoaderComponent :message="'Récupération des tours...'" v-if="loading"/>
   </div>
@@ -9,7 +8,6 @@
 <script setup lang="ts">
 import ApiService from '@/services/ApiService';
 import { onMounted, ref } from 'vue';
-import bgImage from '@/assets/images/background/background-light.png';
 import { TourResultat } from '@/model/TourResultat';
 import ResultTourListe from '@/components/tours/ResultTourListe.vue';
 import { mapToTourResultat, mapToTourResultatWithoutRankings } from '@/mapper/TourResultatMapper';

@@ -29,4 +29,5 @@ const goToResult = (tour: TourResultat) => {
     toursResultatStore.setTourResultat(tour);
     routingService.goToResult(tour);
 }
+
 </script>

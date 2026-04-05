@@ -4,7 +4,7 @@
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     type="text" 
     :placeholder="placeholder" 
-    class="w-64 p-2 mb-4 rounded-xl" 
+    class="w-64 p-2 mb-4 rounded-xl bg-stone-100" 
   />
 </template>
 

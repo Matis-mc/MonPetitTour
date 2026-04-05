@@ -20,6 +20,10 @@ class RoutingService {
         this.router.push('/tour/upload');
     }
 
+    goToSelectionSegmentRanking() {
+        this.router.push('/tour/segment/ranking');
+    }
+
     goToRejoindreTour() {
         this.router.push('/tour/search');
     }

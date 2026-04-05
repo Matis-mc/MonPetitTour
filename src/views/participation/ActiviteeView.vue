@@ -34,7 +34,7 @@ onMounted(() => {
 const onSelect = (activitee: StravaActivitee) => {
     loading.value = true;
     console.log("Activity : ", activitee);
-    ApiService.loadResultTourFromStrava(activitee.id, '123').then(
+    ApiService.loadResultTourFromStrava(activitee.id, userResultat.tourResultat.getId()).then(
         (resultat) => {
             console.log(resultat);
             userResultat.setTourResultat(mapToTourResultat(resultat));

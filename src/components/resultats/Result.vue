@@ -1,19 +1,17 @@
 <template>
-    <div class="flex flex-col w-full border-t border-stone-200 items-center bg-olive-50">
+    <div :class="['flex flex-col w-full items-center px-2 pb-2 rounded-xl shadow-md transition-all duration-300', categoryColors]">
         <div class="flex flex-col w-full items-center">
-            <img 
+            <img v-if="result.getRank() <= 3"
                 :src="imageUrl" 
-                alt="Category Icon" 
-                class="w-16 h-16 rounded-full border-2 border-stone-50 shadow-sm"/>
-            <span v-if="result.getRank() > 3" class="text-2xl font-bold px-2 py-0.5 rounded-full">
+                alt="Ranking decoration" 
+                class="w-16 h-16 rounded-full"/>
+            <span v-if="result.getRank() > 3" 
+                class="text-4xl font-bold px-2 py-3 rounded-full">
                 {{ result.getRank() }}
             </span>
         </div>
         <div class="flex text-right">
-            <p class="bg-stone-800 text-white text-xs font-bold px-2 py-0.5 rounded-full border-2">{{ result.getScore() }} pts</p>
-        </div>
-        <div class="flex flex-col flex-1">
-            <p class="font-bold text-stone-800 text-lg">{{getCategoryName(category) }}</p>
+            <p class="bg-stone-800 text-white text-xs font-bold px-2 py-1 mt-1 rounded-full">{{ result.getScore() }} pts</p>
         </div>
     </div>
 </template>
@@ -21,10 +19,20 @@
 <script setup lang="ts">
 import { getCategoryName, getIconeFromCategory } from '@/constants/categories';
 import { Ranking } from '@/model/Ranking';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import or from '@/assets/images/icones/medaille_or.png';
 import argent from '@/assets/images/icones/medaille_argent.png';
 import bronze from '@/assets/images/icones/medaille_bronze.png';
+
+const categoryColors = computed(() => {
+    switch (props.category) {
+        case 'G': return 'bg-yellow-100';
+        case 'S': return 'bg-green-500';
+        case 'D': return 'bg-blue-100';
+        case 'M': return 'bg-red-100';
+        default: return 'bg-neutral-200';
+    }
+});
 
 
 const imageUrl = ref("");

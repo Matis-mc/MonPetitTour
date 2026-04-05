@@ -6,7 +6,7 @@
         </div>
         <div class="flex col-span-3">
             <SegmentRankElement 
-                v-for="(rank, index) in segment.ranking" 
+                v-for="(rank, index) in segment.points" 
                 :key="index" 
                 :rankValue="rank" 
                 :positionValue="index + 1" 

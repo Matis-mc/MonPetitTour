@@ -1,17 +1,19 @@
 <template>
 
-    <div class="p-4 grid grid-cols-6 gap-4 items-center justify-items-center">
-        <h3 class="text-lg font-medium mb-2">{{ props.index }}</h3>
-        <div class="text-center">
-            <p class="text-m">↔️ {{ props.segment.distance.toFixed(2) }} m</p>
-            <p class="text-m">↗️ {{ props.segment.slope.toFixed(2) }} %</p>
+    <div class="p-2 bg-white grid grid-cols-8 gap-1 items-center justify-items-center border-b border-gray-200">
+        <div class="col-span-1">
+            <h3 class="text-lg font-medium mb-2">{{ props.index  + 1}}</h3>
         </div>
-        <div class="relative">
+        <div class="text-center col-span-5">
+            <p class="text-m"> <img src="@/assets/images/icones/distance.png" alt="Distance Icon" class="inline-block w-5 h-5 mr-2"/>{{ props.segment.distance.toFixed(2) }} m</p>
+            <p class="text-m"> <img src="@/assets/images/icones/slope.png" alt="Slope Icon" class="inline-block w-5 h-5 mr-2"/>{{ props.segment.slope.toFixed(2) }} %</p>
+        </div>
+        <div class="col-span-2">
             <img 
                 @click="isPopupOpen = true"
                 :src="getIconeFromCategory(props.segment.category)" 
                 alt="Segment Image" 
-                class="w-16 h-16 rounded-md cursor-pointer hover:opacity-80"/>
+                class="w-16 h-16 rounded-md cursor-pointer hover:opacity-80 shadow-md"/>
             
             <div v-if="isPopupOpen" class="absolute top-20 left-0 bg-white border rounded-lg shadow-lg p-3 z-10">
                 <p class="text-xs font-semibold mb-2">Catégorie:</p>

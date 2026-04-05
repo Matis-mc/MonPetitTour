@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-col item-center w-full border">
+    <div class="flex-col item-center w-full">
         <div v-for="(segment, index) in segments" :key="index">
             <SegmentListElement :segment="segment" :numero="index + 1" :index="index" />
         </div>

@@ -25,14 +25,14 @@ const props = defineProps({
 
 const bgColor = computed(() => {
     switch(props.categorie) {
-        case "Plat":
+        case "sprint":
             return 'border-l-4 border-emerald-500';
-        case "Montagne":
+        case "mountain":
             return 'border-l-4 border-red-400';
-        case "Descente":
+        case "descent":
             return 'border-l-4 border-blue-300';
         default:
-            return 'border-l-4 border-gray-200';
+            return 'border-l-4 border-yellow-200';
     }
 })
 

@@ -1,14 +1,16 @@
 <template>
-    <div class="flex flex-col gap-3 p-1 mt-1 bg-stone-50 border border-stone-200 shadow-sm">
-        <div v-if="userResult.length > 0" class="grid grid-cols-3 gap-4 px-2 py-1 items-center bg-stone-100/50 rounded-lg">
-            <Result :result="userResult[0].rank!" :category="userResult[0].category" class="col-span-1" />
-            <div class="col-span-2">
-                <h1 class="font-bold text-stone-800 text-lg leading-none">{{props.tour.getName()}}</h1>
-                <p class="text-stone-500 text-sm">{{props.tour.getDescription()}}</p>
+    <div class="flex flex-col p-2 m-2 bg-slate-100 border border-neutral-200 rounded-lg">
+        <div v-if="userResult.length > 0" class="grid grid-cols-3 gap-4">
+            <div class="col-span-2 pt-2">
+                <h1 class="font-bold text-2xl">{{props.tour.getName()}}</h1>
+                <p class="text-stone-500 text-m my-2">{{props.tour.getDescription()}}</p>
                 <p class="text-stone-500 text-sm">{{props.tour.getRanking().getGeneral().length}} participants</p>
             </div>
+            <Result :result="userResult[0].rank!" :category="userResult[0].category"
+            class="col-span-1" />
         </div>
-        <div v-if="userResult.length > 1" class="flex flex-row gap-4 px-2 py-1 items-center bg-stone-100/50 rounded-lg">
+        <p class="text-stone-700 text-sm mt-2 text-center">Par catégories</p>
+        <div v-if="userResult.length > 1" class="flex flex-row gap-4 py-1 my-2 items-center">
             <div v-for="res in userResult.slice(1)" :key="res.category">
                 <Result :result="res.rank!" :category="res.category" />
             </div>

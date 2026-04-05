@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'climate': ['Climate Crisis', 'sans-serif'],
+        'sans': ['Funnel Display', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

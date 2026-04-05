@@ -17,6 +17,7 @@ import SegmentRankingView from './views/participation/SegmentRankingView.vue'
 import LoginView from './views/LoginView.vue'
 import StravaCallbackView from './views/StravaCallbackView.vue'
 import { useAuthStore } from './stores/AuthStore'
+import SelectionSegmentsRankingView from './views/tours/SelectionSegmentsRankingView.vue'
 
 const pinia = createPinia();
 
@@ -47,6 +48,11 @@ const router = createRouter({
       path: '/tour/ranking/segment',
       name: 'segmentranking',
       component: SegmentRankingView
+    },
+    {
+      path: '/tour/segment/ranking',
+      name: 'selectionSegmentRanking',
+      component: SelectionSegmentsRankingView
     },
     {
       path: '/tour/confirmation',

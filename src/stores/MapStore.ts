@@ -27,15 +27,15 @@ export const useMapStore = defineStore('map', {
         },
         updateSegmentCategory(index: number, category: string) {
             if (index >= 0 && index < this.segments.length) {
-                this.segments[index].categorie = category;
+                this.segments[index].category = category;
             }
         },
         updateSegmentRanking(segmentIndex: number, rankIndex: number, value: number) {
             if (segmentIndex >= 0 && segmentIndex < this.segments.length) {
-                if (!this.segments[segmentIndex].ranking) {
-                    this.segments[segmentIndex].ranking = [];
+                if (!this.segments[segmentIndex].points) {
+                    this.segments[segmentIndex].points = [];
                 }
-                this.segments[segmentIndex].ranking![rankIndex] = value;
+                this.segments[segmentIndex].points![rankIndex] = value;
             }
         }
     }

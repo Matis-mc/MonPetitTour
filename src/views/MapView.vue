@@ -6,14 +6,14 @@
         <button class="fixed w-16 h-16 bottom-16 left-4 px-4 py-2 text-white rounded-full shadow-lg bg-teal-50" @click="openSegmentModal()">
             <img src="@/assets/images/icones/segment.png" alt="Download Icon" class="inline-block w-16 h-auto"/>
         </button>
-        <button v-if="hasSegmentCreated" class="fixed w-16 h-16 bottom-16 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-300" @click="routingService.goToRanking()">
+        <button v-if="hasSegmentCreated" class="fixed w-16 h-16 bottom-16 right-4 px-4 py-2 text-white rounded-full shadow-lg bg-emerald-300" @click="routingService.goToSelectionSegmentRanking()">
             <img src="@/assets/images/icones/fleche-droite.png" alt="Continue Icon" class="inline-block w-16 h-auto"/>
         </button>
     </div>
     <Teleport to="body">
-        <div v-if="isSegmentModalVisible" class="fixed m-4 p-2 shadow-md rounded-xl inset-0 bg-stone-100 flex-col items-center justify-center">
+        <div v-if="isSegmentModalVisible" class="fixed m-4 h-fit py-4 px-2 shadow-lg rounded-xl inset-0 bg-white/90 flex-col items-center justify-center">
             <button class="m-3" @click="closeSegmentModal()">
-                <img src="@/assets/images/icones/chevron-bas.png" alt="Close Icon" class="inline-block w-6 h-auto"/>
+                <img src="@/assets/images/icones/chevron-bas.png" alt="Close Icon" class="inline-block w-6 h-auto absolute top-4 right-4"/>
             </button>
             <SegmentVisualisationComponent/>
         </div>
