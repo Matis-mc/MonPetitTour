@@ -1,10 +1,11 @@
+import { RankByCategory } from "@/model/RankByCategory";
 import { Ranking } from "@/model/Ranking"
 import { TourResultat } from "@/model/TourResultat"
 
 class RankingService {
 
 
-    getUserResult = (tour: TourResultat, user: any) => {
+    getUserResult = (tour: TourResultat, user: any): RankByCategory[] => {
 
         console.log("Tour result", tour);
         console.log("User", user);
@@ -15,10 +16,10 @@ class RankingService {
         let descentRank = this.getUserRank(tour.getRanking().getDescent(), user)
 
         let allResults = [
-            { "category": "G", "rank": generalRank },
-            { "category": "S", "rank": sprintRank },
-            { "category": "M", "rank": mountainRank },
-            { "category": "D", "rank": descentRank }
+            new RankByCategory("G", generalRank),
+            new RankByCategory("S", sprintRank),
+            new RankByCategory("M", mountainRank),
+            new RankByCategory("D", descentRank)
         ]
 
         console.log("All user result", allResults);
@@ -30,6 +31,8 @@ class RankingService {
         if (ranks === null || ranks === undefined) {
             return null;
         }
+        console.log("Ranks", ranks);
+        console.log("User", user);
         // todo : à remettre quand ajout suer ok
         //return ranks.find((r: Ranking) => r.idUser === user.value?.id);
         return ranks[0];

@@ -10,24 +10,24 @@
 
 <script setup lang="ts">
 
-import { ref, onMounted, onBeforeUnmount, watch, computed } from 'vue'
+import { ref, onMounted, onBeforeUnmount, watch, computed, shallowRef } from 'vue'
 import L from 'leaflet'
 import 'leaflet-gpx'
 import 'leaflet-routing-machine'
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
-import { useMapStore } from '../stores/MapStore'
+import { useMapStore } from '../../stores/MapStore'
 import { Segment } from '@/model/Segment'
-import { getColorBySlope } from '@/utils/GpxUtils'
+import { getColorBySlope, getElevationData } from '@/utils/GpxUtils'
 
 
 // State
-const map = ref<L.Map | null>(null)
+const map = shallowRef<L.Map | null>(null)
 const points = ref<L.LatLng[]>([])
 const segments = ref<Segment[]>([])
 const mapStore = useMapStore()
-const gpxLayer = ref<any>(null)
-const slopeLayers = ref<L.Polyline[]>([])
-const routingControls = ref<any[]>([])
+const gpxLayer = shallowRef<any>(null)
+const slopeLayers = shallowRef<L.Polyline[]>([])
+const routingControls = shallowRef<any[]>([])
 
 const gpxFile = computed(() => mapStore.getGpxFile)
 
@@ -44,10 +44,7 @@ onMounted(() => {
 
 watch(
   gpxFile,
-  (newGpxFile) => {
-      loadGPX(newGpxFile)
-
-  }
+  (newGpxFile) => loadGPX(newGpxFile)
 )
 
 // Surveiller la suppression de segments dans le store pour synchroniser la carte
@@ -80,7 +77,7 @@ const initMap = () => {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
     maxZoom: 19
-  }).addTo(map.value)
+  }).addTo(map.value as L.Map)
 
 
   map.value.on('click', (e: L.LeafletMouseEvent) => {
@@ -92,22 +89,29 @@ const initMap = () => {
   })
 }
 
-const loadGPX = (file: File) => {
-  console.log('Chargement du fichier GPX :', file.name)
+const loadGPX = (file: File | null) => {
   if (!map.value) return
 
   // Supprimer l'ancien tracé GPX
   if (gpxLayer.value) {
     map.value.removeLayer(gpxLayer.value)
+    gpxLayer.value = null
   }
 
   // Supprimer les anciennes polylines colorées
-  slopeLayers.value.forEach((l: L.Polyline) => map.value!.removeLayer(l))
+  slopeLayers.value.forEach((l) => map.value!.removeLayer(l))
   slopeLayers.value = []
   
   // Supprimer les anciens segments tracés
   routingControls.value.forEach((c: any) => map.value!.removeControl(c))
   routingControls.value = []
+
+  if (!file) {
+    console.log('Fichier GPX réinitialisé')
+    return
+  }
+
+  console.log('Chargement du fichier GPX :', file.name)
 
   const url = URL.createObjectURL(file)
 
@@ -134,6 +138,8 @@ const loadGPX = (file: File) => {
       drawSegmentOnMap(segment)
     }
   }
+
+  mapStore.setElevationData(getElevationData(gpxLayer.value)!);
 }
 
 const drawSlopeColors = (gpx: any) => {
@@ -163,7 +169,7 @@ const drawSlopeColors = (gpx: any) => {
 
         // Tooltip au clic
         //polyline.bindTooltip(`${slope.toFixed(1)}%`, { sticky: true })
-        polyline.addTo(map.value!)
+        polyline.addTo(map.value as L.Map)
         slopeLayers.value.push(polyline)
       }
     })
@@ -258,7 +264,7 @@ const drawSegmentOnMap = (segment: Segment) => {
   
   const color = getColorBySlope(Math.abs(segment.slope))
   
-  const control = L.Routing.control({
+  const control = (L as any).Routing.control({
     waypoints: [
       L.latLng(segment.getStart().getLat(), segment.getStart().getLng()),
       L.latLng(segment.getEnd().getLat(), segment.getEnd().getLng())
@@ -269,7 +275,7 @@ const drawSegmentOnMap = (segment: Segment) => {
     lineOptions: {
       styles: [{ color: color, opacity: 0.8, weight: 5 }]
     }
-  }).addTo(map.value)
+  }).addTo(map.value as L.Map)
 
   routingControls.value.push(control)
 }

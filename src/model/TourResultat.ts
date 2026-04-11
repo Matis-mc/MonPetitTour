@@ -1,5 +1,3 @@
-import { Rider } from "./Rider";
-import { Segment } from "./Segment";
 import { SegmentResultat } from "./SegmentResultat";
 import { TourRankings } from "./TourRankings";
 
@@ -28,7 +26,7 @@ class TourResultat {
     }
 
     getId(): number {
-        return this.id;
+        return this.id!;
     }
 
     getName(): string {

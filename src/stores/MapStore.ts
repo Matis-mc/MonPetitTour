@@ -4,7 +4,8 @@ import type { Segment } from '../model/Segment';
 export const useMapStore = defineStore('map', {
     state: () => ({
         gpxFile: null as File | null,
-        segments: [] as Array<Segment>
+        segments: [] as Array<Segment>,
+        elevationData: [] as Array<GpxPointProfile>
     }),
     getters: {
         getGpxFile(state) {
@@ -12,6 +13,9 @@ export const useMapStore = defineStore('map', {
         },
         getSegments(state) {
             return state.segments;
+        },
+        getElevationData(state) {
+            return state.elevationData;
         }
     },
     actions: {
@@ -40,6 +44,10 @@ export const useMapStore = defineStore('map', {
                 }
                 this.segments[segmentIndex].points![rankIndex] = value;
             }
+        },
+        setElevationData(elevationData: Array<GpxPointProfile>) {
+            console.log('MapStore: setElevationData called with', elevationData);
+            this.elevationData = elevationData;
         }
     }
 

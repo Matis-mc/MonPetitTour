@@ -47,10 +47,8 @@ export const useAuthStore = defineStore('auth', () => {
             const stravaUrl = `https://www.strava.com/oauth/token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}&grant_type=authorization_code`
             const response = await axios.post(stravaUrl)
             const { access_token, refresh_token, athlete } = response.data
-            console.log("Data strava : ", response.data);
             setTokens(access_token, refresh_token, athlete)
             user.value = athlete
-            console.log("User", user.value);
             return true
         } catch (error) {
             console.error('Failed to handle Strava callback', error)
@@ -69,8 +67,9 @@ export const useAuthStore = defineStore('auth', () => {
             const response = await axios.post(`${BASE_URL}/auth/refresh`, {
                 refresh_token: refreshToken.value
             })
-            const { access_token, refresh_token } = response.data
-            setTokens(access_token, refresh_token)
+            const { access_token, refresh_token, athlete } = response.data
+            setTokens(access_token, refresh_token, athlete)
+            user.value = athlete
             return access_token
         } catch (error) {
             console.error('Failed to refresh token', error)

@@ -6,7 +6,6 @@
     </div>
 </template>
 <script setup lang="ts">
-import { TourResultat } from '@/model/TourResultat';
 import RankingService from '@/services/RankingService';
 import { useAuthStore } from '@/stores/AuthStore';
 import { useResultatTourStore } from '@/stores/ResultatTourStore';

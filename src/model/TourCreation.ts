@@ -47,7 +47,7 @@ class TourCreation {
     }
 
     getGpxFile(): File {
-        return this.gpxFile;
+        return this.gpxFile!;
     }
 
     setName(name: string): void {

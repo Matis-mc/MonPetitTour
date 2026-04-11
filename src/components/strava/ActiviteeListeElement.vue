@@ -4,9 +4,9 @@
             <img class="w-12 h-12"  src="@/assets/images/tiers/logo-strava.png" alt="Logo Strava">
         </div>
         <div class="col-span-4">
-            <h2>{{ activity.name }}</h2>
-            <p>{{ activity.distance }}</p>
-            <p>{{ activity.date }}</p>
+            <h2>{{ props.activity.name }}</h2>
+            <p>{{ props.activity.distance }}</p>
+            <p>{{ props.activity.date }}</p>
         </div>
     </div>
 </template>     

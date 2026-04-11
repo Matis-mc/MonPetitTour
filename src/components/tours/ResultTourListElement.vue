@@ -24,10 +24,11 @@ import { useAuthStore } from '@/stores/AuthStore';
 import { onMounted, ref } from 'vue';
 import Result from '../resultats/Result.vue';
 import RankingService from '@/services/RankingService';
+import { RankByCategory } from '@/model/RankByCategory';
 
 const authStore = useAuthStore();
 const user = ref(authStore.user);
-const userResult = ref([]);
+const userResult = ref<RankByCategory[]>([]);
 
 const props = defineProps({
     tour: {

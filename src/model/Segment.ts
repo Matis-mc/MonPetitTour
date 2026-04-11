@@ -56,7 +56,7 @@ class Segment {
     }
 
     getPoints(): number[] {
-        return this.points;
+        return this.points!;
     }
 
     setStart(start: Coordonnee): void {
@@ -85,7 +85,3 @@ class Segment {
 }
 
 export { Segment };
-
-function getCategoryByCode(category: string): string {
-    throw new Error("Function not implemented.");
-}

@@ -1,9 +1,9 @@
 <template>
-    <div class="flex flex-col gap-2 " v-for="tour in tours" :key="tour.getId()">
+    <div class="flex flex-col gap-2 " v-for="tour in props.tours" :key="tour.getId()">
         <ResultTourListElement v-if="tour.getRanking().general.length > 0" :tour="tour" @click="goToResult(tour)"/>
         <OpenTourListeElement v-if="tour.getRanking().general.length === 0" :tour="tour" />
     </div>
-    <div v-if="tours.length === 0" class="flex items-center w-full justify-center">
+    <div v-if="props.tours.length === 0" class="flex items-center w-full justify-center">
         <p class="text-stone-500 a ">Aucun tour trouvé</p>
     </div>
 </template>
@@ -27,7 +27,7 @@ const props = defineProps({
 
 const goToResult = (tour: TourResultat) => {
     toursResultatStore.setTourResultat(tour);
-    routingService.goToResult(tour);
+    routingService.goToResult();
 }
 
 </script>

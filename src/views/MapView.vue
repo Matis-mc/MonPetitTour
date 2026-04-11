@@ -2,6 +2,7 @@
     <div class="h-screen flex flex-col lg:flex-row overflow-hidden bg-neutral-50">
         <!-- Main Map Area -->
         <div class="flex-1 relative h-full">
+            <HeightChart></HeightChart>
             <MapComponent :is-editing="true" class="h-full w-full"/>
             
             <!-- Floating Mobile Button for Segments -->
@@ -60,17 +61,16 @@
 </template>
 
 <script setup lang="ts">
-import MapComponent from '@/components/MapComponent.vue';
+import MapComponent from '@/components/map/MapComponent.vue';
 import SegmentVisualisationComponent from '@/components/segments/SegmentVisualisationComponent.vue';
 import { useRoutingService } from '@/services/routingService';
 import { useMapStore } from '@/stores/MapStore';
-import { useCreationTourStore } from '@/stores/CreationTourStore';
 import { computed, ref } from 'vue';
+import HeightChart from '@/components/map/HeightChart.vue';
 
 const routingService = useRoutingService();
 
 const mapStore = useMapStore();
-const tourStore = useCreationTourStore();
 
 const isSegmentModalVisible = ref(false);
 const hasSegmentCreated = computed(() => mapStore.getSegments.length > 0);

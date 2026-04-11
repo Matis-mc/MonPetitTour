@@ -66,7 +66,7 @@
 import { computed, ref } from 'vue';
 import SegmentRankinkByCategorie from '@/components/segments/SegmentRankinkByCategorie.vue';
 import { CATEGORIES, CATEGORY_NAMES } from '@/constants/categories';
-import MapComponent from '../MapComponent.vue';
+import MapComponent from '../map/MapComponent.vue';
 import { useCreationTourStore } from '@/stores/CreationTourStore';
 
 
@@ -79,13 +79,13 @@ const segments = computed(() =>
   [segmentMontee.value, segmentPlat.value, segmentDescente.value]
 );
 const segmentMontee = computed(() =>
-  tourStore.tourCreation.getSegments().filter(s => s.categorie === CATEGORIES.MOUNTAIN.code)
+  tourStore.tourCreation.getSegments().filter(s => s.category === CATEGORIES.MOUNTAIN.code)
 );
 const segmentPlat = computed(() =>
-  tourStore.tourCreation.getSegments().filter(s => s.categorie === CATEGORIES.FLAT.code)
+  tourStore.tourCreation.getSegments().filter(s => s.category === CATEGORIES.FLAT.code)
 );
 const segmentDescente = computed(() =>
-  tourStore.tourCreation.getSegments().filter(s => s.categorie === CATEGORIES.DESCENT.code)
+  tourStore.tourCreation.getSegments().filter(s => s.category === CATEGORIES.DESCENT.code)
 );
 
 const emit = defineEmits(['confirmationCreationTour']);

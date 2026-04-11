@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { getCategoryName, getIconeFromCategory } from '@/constants/categories';
+import { getIconeFromCategory } from '@/constants/categories';
 import { Ranking } from '@/model/Ranking';
 import { computed, onMounted, ref } from 'vue';
 import or from '@/assets/images/icones/medaille_or.png';
