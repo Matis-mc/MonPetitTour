@@ -65,7 +65,7 @@ import SegmentVisualisationComponent from '@/components/segments/SegmentVisualis
 import { useRoutingService } from '@/services/RoutingService';
 import { useMapStore } from '@/stores/MapStore';
 import { computed, ref } from 'vue';
-import HeightChart from '@/components/map/HeightChart.vue';
+
 
 const routingService = useRoutingService();
 

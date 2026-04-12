@@ -14,7 +14,7 @@ import FileInputComponent from '@/components/FileInputComponent.vue';
 import InputText from '@/components/generics/InputText.vue';
 import { useMapStore } from '@/stores/MapStore';
 import { useCreationTourStore } from '@/stores/CreationTourStore';
-import { useRouter } from 'vue-router';
+
 import carteImage from '@/assets/images/background/carte.jpg';
 import { onMounted } from 'vue';
 import { useRoutingService } from '@/services/RoutingService';
