@@ -3,7 +3,7 @@
     <div class="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center border border-gray-100">
       <div class="mb-8">
         <img src="@/assets/images/logo/logo.png" alt="Logo" class="h-20 mx-auto mb-4" />
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Mon Petit Tour</h1>
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Maillot Jaune</h1>
         <p class="text-gray-500">Connectez-vous avec Strava pour continuer</p>
       </div>
 

@@ -15,7 +15,7 @@ export function mapToTourResultat(t: any): TourResultat {
     let rankingMountain = mapToRankingArray(t.rankings.mountain);
     let rankingSprint = mapToRankingArray(t.rankings.sprint);
 
-    return new TourResultat(t._id, t.name, t.description, segments,
+    return new TourResultat(t._id.$oid, t.name, t.description, segments,
         new TourRankings(rankingGeneral, rankingMountain, rankingSprint, rankingDescent), t.status, t.created_at, t.updated_at, t.gpx_content);
 }
 
@@ -24,7 +24,7 @@ export function mapToTourResultatWithoutRankings(t: any): TourResultat {
     t.segments.forEach((s: any) => {
         segments.push(mapToSegmentResultatWithoutRankings(s));
     });
-    return new TourResultat(t._id, t.name, t.description, segments,
+    return new TourResultat(t._id.$oid, t.name, t.description, segments,
         new TourRankings([], [], [], []), t.status, t.created_at, t.updated_at, t.gpx_content);
 }
 

@@ -2,7 +2,6 @@
     <div class="h-screen flex flex-col lg:flex-row overflow-hidden bg-neutral-50">
         <!-- Main Map Area -->
         <div class="flex-1 relative h-full">
-            <HeightChart></HeightChart>
             <MapComponent :is-editing="true" class="h-full w-full"/>
             
             <!-- Floating Mobile Button for Segments -->
@@ -16,7 +15,7 @@
             <button 
                 v-if="hasSegmentCreated" 
                 class="fixed w-14 h-14 bottom-20 right-4 px-3 py-2 text-white rounded-xl shadow-xl bg-emerald-400 hover:bg-emerald-500 z-40 transition-all active:scale-95" 
-                @click="routingService.goToSelectionSegmentRanking()">
+                @click="routingService.goToCreationSegmentRanking()">
                 <img src="@/assets/images/icones/fleche-droite.png" alt="Continuer" class="w-full h-full object-contain filter invert brightness-0"/>
             </button>
         </div>
@@ -63,7 +62,7 @@
 <script setup lang="ts">
 import MapComponent from '@/components/map/MapComponent.vue';
 import SegmentVisualisationComponent from '@/components/segments/SegmentVisualisationComponent.vue';
-import { useRoutingService } from '@/services/routingService';
+import { useRoutingService } from '@/services/RoutingService';
 import { useMapStore } from '@/stores/MapStore';
 import { computed, ref } from 'vue';
 import HeightChart from '@/components/map/HeightChart.vue';

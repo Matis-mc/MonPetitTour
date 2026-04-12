@@ -15,7 +15,7 @@ import { useMapStore } from '@/stores/MapStore';
 import { computed } from 'vue';
 import SegmentRankinkByCategorie from '@/components/segments/SegmentRankinkByCategorie.vue';
 import { CATEGORIES, CATEGORY_NAMES } from '@/constants/categories';
-import { useRoutingService } from '@/services/routingService';
+import { useRoutingService } from '@/services/RoutingService';
 import { useCreationTourStore } from '@/stores/CreationTourStore';
 
 const routingService = useRoutingService();

@@ -17,39 +17,39 @@ class RoutingService {
     }
 
     goToCreateTour() {
-        this.router.push('/tour/upload');
+        this.router.push('/creation/upload');
     }
 
-    goToSelectionSegmentRanking() {
-        this.router.push('/tour/segment/ranking');
+    goToCreationSegmentRanking() {
+        this.router.push('/creation/segment/ranking');
     }
 
     goToRejoindreTour() {
-        this.router.push('/tour/search');
+        this.router.push('/search/tour');
     }
 
     goToActivities() {
-        this.router.push('/tour/activities');
+        this.router.push('/search/activities');
     }
 
     goToResult() {
-        this.router.push('/tour/result');
+        this.router.push('/result/tour');
     }
 
     goToCategorieRanking() {
-        this.router.push('/tour/ranking/categorie');
+        this.router.push('/result/ranking/categorie');
     }
 
     goToSegmentRanking() {
-        this.router.push('/tour/ranking/segment');
+        this.router.push('/result/ranking/segment');
     }
 
     gotoMap() {
-        this.router.push('/map');
+        this.router.push('/creation/map');
     }
 
     gotoConfirmation() {
-        this.router.push('/tour/confirmation');
+        this.router.push('/creation/confirmation');
     }
 
     goToHome() {

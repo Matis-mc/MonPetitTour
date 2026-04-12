@@ -15,7 +15,7 @@ import argent from '@/assets/images/icones/medaille_argent.png';
 import bronze from '@/assets/images/icones/medaille_bronze.png';
 import drapeau from '@/assets/images/icones/drapeau.png';
 import BlackRoundButton from '@/components/generics/BlackRoundButton.vue';
-import { useRoutingService } from '@/services/routingService';
+import { useRoutingService } from '@/services/RoutingService';
 
 const authStore = useAuthStore();
 const routingService = useRoutingService();

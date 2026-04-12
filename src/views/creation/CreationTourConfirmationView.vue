@@ -14,16 +14,23 @@
 import CreationToursConfirmation from '@/components/tours/CreationToursConfirmation.vue';
 import ApiService from '@/services/ApiService';
 import { useCreationTourStore } from '@/stores/CreationTourStore';
-import { useRoutingService } from '@/services/routingService';
+import { useRoutingService } from '@/services/RoutingService';
 import { ref } from 'vue';
+import { useMapStore } from '@/stores/MapStore';
 
 const tourStore = useCreationTourStore();
+const mapStore = useMapStore();
 const routingService = useRoutingService();
 const error = ref<string | null>(null);
 
 const confirmationCreationTour = async () => {
     try {
-        await ApiService.createTour(tourStore.tourCreation);
+        const gpxFile = mapStore.getGpxFile;
+        if (!gpxFile) {
+            error.value = "Fichier GPX manquant.";
+            return;
+        }
+        await ApiService.createTour(tourStore.tourCreation, gpxFile);
         tourStore.resetTourCreation();
         error.value = null;
         routingService.goToHome();

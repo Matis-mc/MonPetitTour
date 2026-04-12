@@ -5,7 +5,7 @@
         </div>
         <div class="col-span-4">
             <h2>{{ props.activity.name }}</h2>
-            <p>{{ props.activity.distance }}</p>
+            <p>{{ mToKm(props.activity.distance) }}</p>
             <p>{{ props.activity.date }}</p>
         </div>
     </div>
@@ -22,6 +22,10 @@ const emit = defineEmits<{
     select: [activity: StravaActivitee];
 }>();
 
+
+function mToKm(meter: number): string {
+    return (meter / 1000).toFixed(2) + ' km';
+}
 
 
 </script>

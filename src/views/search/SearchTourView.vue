@@ -9,7 +9,7 @@ import bgImage from '@/assets/images/background/background-light.png';
 import ApiService from '@/services/ApiService';
 import { useResultatTourStore } from '@/stores/ResultatTourStore';
 import { TourResultat } from '@/model/TourResultat';
-import { useRoutingService } from '@/services/routingService';
+import { useRoutingService } from '@/services/RoutingService';
 
 const routingService = useRoutingService();
 

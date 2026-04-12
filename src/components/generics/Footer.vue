@@ -19,7 +19,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { useRoutingService } from '@/services/routingService';
+import { useRoutingService } from '@/services/RoutingService';
 
 const routingService = useRoutingService();
 

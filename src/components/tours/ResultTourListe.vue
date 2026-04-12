@@ -13,7 +13,7 @@ import ResultTourListElement from './ResultTourListElement.vue';
 import OpenTourListeElement from './OpenTourListeElement.vue';
 import { TourResultat } from '@/model/TourResultat';
 import { useResultatTourStore } from '@/stores/ResultatTourStore';
-import { useRoutingService } from '@/services/routingService';
+import { useRoutingService } from '@/services/RoutingService';
 
 const toursResultatStore = useResultatTourStore();
 const routingService = useRoutingService();

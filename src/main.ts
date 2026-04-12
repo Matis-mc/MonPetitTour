@@ -4,20 +4,20 @@ import App from './App.vue'
 import './assets/main.css'
 
 // Import des vues
-import HomeView from './views/HomeView.vue'
-import UploadGPXView from './views/tours/UploadGPXView.vue'
-import ConfirmationTourView from './views/tours/ConfirmationTourView.vue'
+import HomeView from './views/home/HomeView.vue'
+import UploadGPXView from './views/creation/UploadGPXView.vue'
+import CreationTourConfirmationView from './views/creation/CreationTourConfirmationView.vue'
 import { createPinia } from 'pinia'
-import MapView from './views/MapView.vue'
-import SearchTourView from './views/participation/SearchTourView.vue'
-import ActiviteeView from './views/participation/ActiviteeView.vue'
-import ResultView from './views/participation/ResultView.vue'
-import CategorieRankingView from './views/participation/CategorieRankingView.vue'
-import SegmentRankingView from './views/participation/SegmentRankingView.vue'
-import LoginView from './views/LoginView.vue'
-import StravaCallbackView from './views/StravaCallbackView.vue'
+import MapView from './views/creation/MapView.vue'
+import SearchTourView from './views/search/SearchTourView.vue'
+import ActiviteeView from './views/search/ActiviteeView.vue'
+import ResultView from './views/result/ResultView.vue'
+import CategorieRankingView from './views/result/CategorieRankingView.vue'
+import SegmentRankingView from './views/result/SegmentRankingView.vue'
+import LoginView from './views/authentification/LoginView.vue'
+import StravaCallbackView from './views/authentification/StravaCallbackView.vue'
 import { useAuthStore } from './stores/AuthStore'
-import SelectionSegmentsRankingView from './views/tours/SelectionSegmentsRankingView.vue'
+import SelectionSegmentsRankingView from './views/creation/CreationSegmentsRankingView.vue'
 
 const pinia = createPinia();
 
@@ -30,47 +30,47 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/tour/upload',
+      path: '/creation/upload',
       name: 'uploadGPX',
       component: UploadGPXView
     },
     {
-      path: '/tour/map',
+      path: '/creation/map',
       name: 'mapTour',
       component: MapView
     },
     {
-      path: '/tour/ranking/categorie',
+      path: '/result/ranking/categorie',
       name: 'rankingcategorie',
       component: CategorieRankingView
     },
     {
-      path: '/tour/ranking/segment',
+      path: '/result/ranking/segment',
       name: 'segmentranking',
       component: SegmentRankingView
     },
     {
-      path: '/tour/segment/ranking',
+      path: '/creation/segment/ranking',
       name: 'selectionSegmentRanking',
       component: SelectionSegmentsRankingView
     },
     {
-      path: '/tour/confirmation',
+      path: '/creation/confirmation',
       name: 'confirmation',
-      component: ConfirmationTourView
+      component: CreationTourConfirmationView
     },
     {
-      path: '/tour/search',
+      path: '/search/tour',
       name: 'search',
       component: SearchTourView
     },
     {
-      path: '/tour/activities',
+      path: '/search/activities',
       name: 'activities',
       component: ActiviteeView
     },
     {
-      path: '/tour/result',
+      path: '/result/tour',
       name: 'result',
       component: ResultView
     },

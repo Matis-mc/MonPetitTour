@@ -17,9 +17,10 @@ import { useCreationTourStore } from '@/stores/CreationTourStore';
 import { useRouter } from 'vue-router';
 import carteImage from '@/assets/images/background/carte.jpg';
 import { onMounted } from 'vue';
+import { useRoutingService } from '@/services/RoutingService';
 
 const mapStore = useMapStore();
-const router = useRouter();
+const routingService = useRoutingService();
 const tourStore = useCreationTourStore();
 
 onMounted(() => {
@@ -31,7 +32,7 @@ const loadGPXFile = (event: any) => {
       if (file) {
         mapStore.setGpxFile(file);
         tourStore.tourCreation.gpxFile = file;
-        router.push('/tour/map');
+        routingService.gotoMap();
       }
 };
 </script>

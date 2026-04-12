@@ -22,7 +22,7 @@
 import { useResultatTourStore } from '@/stores/ResultatTourStore';
 import RankingBySegment from '@/components/resultats/RankingBySegment.vue';
 import BlackRoundButton from '@/components/generics/BlackRoundButton.vue';
-import { useRoutingService } from '@/services/routingService';
+import { useRoutingService } from '@/services/RoutingService';
 import bgImage from '@/assets/images/background/background-light.png';
 import { storeToRefs } from 'pinia';
 
