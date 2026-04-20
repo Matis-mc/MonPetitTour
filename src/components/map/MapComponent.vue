@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button class="bg-white rounded-full p-2 fixed top-30 left-4 z-40 shadow-md hover:bg-stone-100 transition-colors" @click="deleteLastSegment()">
-      <img src="@/assets/images/icones/undo.png" alt="Annuler" class="w-8 h-8" />
+    <button class="bg-white rounded-full p-3 fixed top-60 left-4 z-50 shadow-md hover:bg-stone-100 transition-colors" @click="deleteLastSegment()">
+      <img src="@/assets/images/icones/undo.png" alt="Annuler" class="w-6 h-6" />
     </button>
     <div id="map" class="w-full h-full rounded-lg shadow-inner"></div>
   </div>

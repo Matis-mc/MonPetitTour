@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col items-center" :style="{ backgroundImage: `url(${bgImage})` }">
-        <h2 class="text-2xl font-bold"> Sélectionne une activité</h2>
+    <div class="flex flex-col items-center">
+        <h2 class="text-2xl my-2 font-bold"> Sélectionne une activité</h2>
         <ActiviteesListe :activitees="activitees" @select="onSelect" />
     </div>
 </template>

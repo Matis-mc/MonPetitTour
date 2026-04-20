@@ -2,13 +2,13 @@ class StravaActivitee {
     id: string;
     name: string;
     distance: number;
-    date: Date;
+    start_date: Date;
 
-    constructor(id: string, name: string, distance: number, date: Date) {
+    constructor(id: string, name: string, distance: number, start_date: Date) {
         this.id = id;
         this.name = name;
         this.distance = distance;
-        this.date = date;
+        this.start_date = start_date;
     }
 }
 

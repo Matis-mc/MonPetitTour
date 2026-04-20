@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col  m-2 bg-slate-100 border border-neutral-200 rounded-lg">
+    <div class="flex flex-col mx-6 my-3 bg-slate-100 shadow-lg rounded-xl">
         <img :src="tourBanner" class="w-full h-32 object-cover rounded-t-xl" />
-        <div class="grid grid-cols-3 gap-4 px-2 py-1 items-center rounded-lg">
+        <div class="grid grid-cols-3 gap-4 p-4 items-center rounded-lg">
             <div class="col-span-2">
                 <h1 class="font-bold text-stone-800 text-lg leading-none">{{props.tour.getName()}}</h1>
                 <p class="text-stone-500 text-sm">{{props.tour.getDescription()}}</p>

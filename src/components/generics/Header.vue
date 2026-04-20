@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between w-full p-2">
+    <div class="flex justify-between w-full p-2 bg-white/40 backdrop-blur-md shadow-sm border-b border-white/20">
         <img src="@/assets/images/logo/logo.png" alt="Mon Petit Tour Logo" class="h-10"/>
         <img :src="img" alt="" class="h-10 rounded-full">
     </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="md:rounded-xl grid grid-cols-5 w-full md:max-w-md p-3">
+    <div class="md:rounded-xl grid grid-cols-5 w-full md:max-w-md p-3 bg-white/40 backdrop-blur-md shadow-lg border border-white/20">
         <div class="col-span-1 flex justify-center items-center" @click="routingService.goToCreateTour()">
             <img src="@/assets/images/icones/creation-tour.png" 
              alt="Logo" class="w-10 h-10">
