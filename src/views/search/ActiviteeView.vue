@@ -10,7 +10,6 @@ import { StravaActivitee } from '@/model/StravaActivitee';
 import ApiService from '@/services/ApiService';
 import { useRoutingService } from '@/services/RoutingService';
 import { onMounted, ref } from 'vue';
-import bgImage from '@/assets/images/background/background-light.png';
 import { useResultatTourStore } from '@/stores/ResultatTourStore';
 import { mapToTourResultat } from '@/mapper/TourResultatMapper';
 

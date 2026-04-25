@@ -2,15 +2,8 @@
     <div class="h-screen flex flex-col lg:flex-row overflow-hidden bg-neutral-50">
         <!-- Main Map Area -->
         <div class="flex-1 relative h-full">
-            <MapComponent :is-editing="true" class="h-full w-full"/>
+            <MapComponent :is-editing="true" @toggle-segments="openSegmentModal" class="h-full w-full"/>
             
-            <!-- Floating Mobile Button for Segments -->
-            <button 
-                class="lg:hidden fixed w-14 h-14 bottom-20 left-4 px-3 py-2 text-white rounded-xl shadow-xl bg-white/90 backdrop-blur-sm border border-stone-200 z-40 transition-transform active:scale-95" 
-                @click="openSegmentModal()">
-                <img src="@/assets/images/icones/segment.png" alt="Segments" class="w-full h-full object-contain"/>
-            </button>
-
             <!-- Floating Navigation Button -->
             <button 
                 v-if="hasSegmentCreated" 
