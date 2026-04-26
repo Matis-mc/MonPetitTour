@@ -78,13 +78,15 @@ class HttpService {
         return response.data;
     }
 
-    async getStravaActivities() {
-        const response = await apiClient.get('/activities');
-        return response.data;
-    }
+    async loadResultTourFromFitFile(file: File, tourId: string) {
+        const formData = new FormData()
+        formData.append('file', file)
 
-    async loadResultTourFromStrava(activityId: string, tourId: string) {
-        const response = await apiClient.get(`/tour/${tourId}/activity/${activityId}`);
+        const response = await apiClient.post(`/tours/${tourId}/fit`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
         return response.data;
     }
 }

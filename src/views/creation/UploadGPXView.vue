@@ -4,13 +4,13 @@
       <h2 class="text-2xl font-bold mb-4">Tracez votre Etape</h2>
       <InputText v-model="tourStore.tourCreation.name" placeholder="Nom du tour"/>
       <InputText v-model="tourStore.tourCreation.description" placeholder="Description"/>
-      <FileInputComponent :fileType="'.gpx'" :onFileLoaded="loadGPXFile" />
+      <FileInputComponent :fileType="'.gpx'" :onFileLoadedEvent="loadGPXFile" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import FileInputComponent from '@/components/FileInputComponent.vue';
+import FileInputComponent from '@/components/generics/FileInputComponent.vue';
 import InputText from '@/components/generics/InputText.vue';
 import { useMapStore } from '@/stores/MapStore';
 import { useCreationTourStore } from '@/stores/CreationTourStore';
@@ -28,11 +28,9 @@ onMounted(() => {
 })
 
 const loadGPXFile = (event: any) => {
-    const file = event.target.files?.[0];
-      if (file) {
-        mapStore.setGpxFile(file);
-        tourStore.tourCreation.gpxFile = file;
-        routingService.gotoMap();
-      }
+    const file = event.target.files[0];
+    mapStore.setGpxFile(file);
+    tourStore.tourCreation.gpxFile = file;
+    routingService.gotoMap();
 };
 </script>

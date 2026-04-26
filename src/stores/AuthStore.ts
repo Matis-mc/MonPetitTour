@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import axios from 'axios'
 
-const BASE_URL = 'https://www.strava.com/api/v3';
+const BASE_URL = 'https://mpt-z3u7.onrender.com/api';
 
 export const useAuthStore = defineStore('auth', () => {
     const accessToken = ref(localStorage.getItem('access_token'))
@@ -40,12 +40,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     async function handleCallback(code: string) {
         try {
-            // todo : appel strava with url encoded
-            const clientId = import.meta.env.VITE_STRAVA_CLIENT_ID
-            const clientSecret = import.meta.env.VITE_STRAVA_CLIENT_SECRET
-
-            const stravaUrl = `https://www.strava.com/oauth/token?client_id=${clientId}&client_secret=${clientSecret}&code=${code}&grant_type=authorization_code`
-            const response = await axios.post(stravaUrl)
+            const response = await axios.post(`${BASE_URL}/auth/strava`, { code })
             const { access_token, refresh_token, athlete } = response.data
             setTokens(access_token, refresh_token, athlete)
             user.value = athlete

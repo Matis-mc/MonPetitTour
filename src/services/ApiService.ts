@@ -2,8 +2,6 @@ import { TourCreation } from "@/model/TourCreation";
 import HttpService from "./HttpService";
 import { getCategoryName } from "@/constants/categories";
 import { mapToTourResultatWithoutRankings } from "@/mapper/TourResultatMapper";
-import { mapToStravaActiviteeList } from "@/mapper/StravaActiviteeMapper";
-import { StravaActivitee } from "@/model/StravaActivitee";
 
 class ApiService {
 
@@ -26,13 +24,8 @@ class ApiService {
         return await HttpService.getTourByCode(code);
     }
 
-    async getStravaActivities(): Promise<StravaActivitee[]> {
-        const rawActivities = await HttpService.getStravaActivities();
-        return mapToStravaActiviteeList(rawActivities);
-    }
-
-    async loadResultTourFromStrava(activityId: string, tourId: string) {
-        return await HttpService.loadResultTourFromStrava(activityId, tourId);
+    async loadResultTourFromFitFile(file: File, tourId: string) {
+        return await HttpService.loadResultTourFromFitFile(file, tourId);
     }
 
 
