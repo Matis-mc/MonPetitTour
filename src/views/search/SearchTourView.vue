@@ -1,9 +1,9 @@
 <template>
     <div class="flex w-2/3 min-w-80 flex-col items-center justify-center bg-cover bg-center bg-no-repeat" :style="{ backgroundImage: `url(${bgImage})` }">
         <SearchTourComponent @searchTour="fetchTour"/>
-    </div>
-    <div v-if="messageError" class="text-red-500 text-center p-4 rounded-lg bg-red-100 absolute bottom-20">
-        {{ messageError }}
+        <div v-if="messageError" class="text-red-500 text-center p-4 rounded-lg bg-red-100 absolute bottom-20">
+            {{ messageError }}
+        </div>
     </div>
 </template>
 <script setup lang="ts">
@@ -26,7 +26,7 @@ const fetchTour = (codeTour: string) => {
     ApiService.getTourByCode(codeTour)
         .then((tourResultat: TourResultat) => {
             store.setTourResultat(tourResultat)
-            routingService.goToActivities();
+            routingService.goToUploadFit();
         })
         .catch((error) => {
             messageError.value = "Impossible de trouver le tour avec le code " + codeTour;

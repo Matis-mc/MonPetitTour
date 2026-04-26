@@ -37,7 +37,7 @@ const props = defineProps({
 
 const goToParticipation = (tour: TourResultat) => {
     toursResultatStore.setTourResultat(tour);
-    routingService.goToActivities();
+    routingService.goToUploadFit();
 }
 
 const downloadGPX = (tour: TourResultat) => {

@@ -10,7 +10,6 @@ import CreationTourConfirmationView from './views/creation/CreationTourConfirmat
 import { createPinia } from 'pinia'
 import MapView from './views/creation/MapView.vue'
 import SearchTourView from './views/search/SearchTourView.vue'
-import ActiviteeView from './views/search/ActiviteeView.vue'
 import ResultView from './views/result/ResultView.vue'
 import CategorieRankingView from './views/result/CategorieRankingView.vue'
 import SegmentRankingView from './views/result/SegmentRankingView.vue'
@@ -18,6 +17,7 @@ import LoginView from './views/authentification/LoginView.vue'
 import StravaCallbackView from './views/authentification/StravaCallbackView.vue'
 import { useAuthStore } from './stores/AuthStore'
 import SelectionSegmentsRankingView from './views/creation/CreationSegmentsRankingView.vue'
+import UploadFitView from './views/search/UploadFitView.vue'
 
 const pinia = createPinia();
 
@@ -65,9 +65,9 @@ const router = createRouter({
       component: SearchTourView
     },
     {
-      path: '/search/activities',
-      name: 'activities',
-      component: ActiviteeView
+      path: '/search/upload-fit',
+      name: 'uploadFit',
+      component: UploadFitView
     },
     {
       path: '/result/tour',

@@ -1,10 +1,10 @@
 <template>
     <div class="flex flex-col items-center">
-        <h2 class="text-2xl my-2 font-bold"> Sélectionne une activité</h2>
+        <h2 class="text-2xl my-2 text-center font-bold"> Ajouter le fichier '.fit' de votre activité</h2>
         <FileInputComponent :fileType="'.fit'" :onFileLoadedEvent="loadFitFile" />
-            <div v-if="messageError" class="text-red-500 text-center p-4 rounded-lg bg-red-100 absolute bottom-20">
-        {{ messageError }}
-    </div>
+        <div v-if="messageError" class="text-red-500 text-center p-4 rounded-lg bg-red-100 absolute bottom-20">
+            {{ messageError }}
+        </div>
     </div>
 </template>
 <script setup lang="ts">

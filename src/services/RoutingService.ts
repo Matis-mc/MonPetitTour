@@ -28,8 +28,8 @@ class RoutingService {
         this.router.push('/search/tour');
     }
 
-    goToActivities() {
-        this.router.push('/search/activities');
+    goToUploadFit() {
+        this.router.push('/search/upload-fit');
     }
 
     goToResult() {
