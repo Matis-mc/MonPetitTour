@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center gap-2 p-4 mx-4 shadow-md rounded-xl bg-gray-100">
+    <div class="flex flex-col items-center gap-2 p-4 mx-4 shadow-md rounded-[50px] bg-gray-100">
         <div class="flex flex-col items-center gap-2">
             <p>Code du tour</p>
             <InputText id="codeTourInput" v-model="codeTour" placeholder="123456" class="w-3/5"/>

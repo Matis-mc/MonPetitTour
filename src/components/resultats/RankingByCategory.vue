@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-col items-center gap-2 p-4 mx-4 shadow-md rounded-xl bg-gray-100">
-        <h3 class="font-bold text-xl">{{ categoryName }}</h3>
+    <div class="flex flex-col items-center gap-2 p-4 shadow-md rounded-xl bg-white">
+        <h3 class="font-bold text-2xl">{{ categoryName }}</h3>
         <div class="w-full overflow-x-auto max-h-96 overflow-y-auto pr-2">
             <table class="w-full text-left">
                 <thead>

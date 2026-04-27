@@ -1,8 +1,9 @@
 <template>
-    <div class="flex flex-col items-center gap-2 p-2" :style="{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover' }">
+    <div class="flex flex-col items-center gap-2 p-3 pb-32 min-h-full" :style="{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundAttachment: 'fixed' }">
+
         <h2 class="text-3xl font-bold text-gray-800 text-center">Classement par Segments</h2>
         
-        <div v-if="tourResultat && tourResultat.segments.length > 0" class="flex flex-col gap-2 w-full max-w-4xl">
+        <div v-if="tourResultat && tourResultat.segments.length > 0" class="flex flex-col w-full max-w-4xl">
             <RankingBySegment 
                 v-for="(segment, index) in tourResultat.segments" 
                 :key="index" 

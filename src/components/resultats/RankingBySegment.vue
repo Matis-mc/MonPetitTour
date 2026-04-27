@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center gap-2 p-2 mx-4 shadow-md rounded-xl bg-gray-100 mb-6">
+    <div class="flex flex-col items-center p-2  shadow-md rounded-xl bg-white mb-6">
         <h3 class="font-bold text-xl">{{ segment.name }}</h3>
         <p class="text-sm text-gray-500 italic">{{ segment.categorie }} - Pente: {{ segment.slope }}%</p>
         <div class="w-full overflow-x-auto max-h-96 overflow-y-auto mt-2 pr-2">

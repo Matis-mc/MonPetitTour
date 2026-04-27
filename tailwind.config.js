@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         'climate': ['Climate Crisis', 'sans-serif'],
         'sans': ['Funnel Display', 'sans-serif'],
+        'modak': ['Modak', 'sans-serif'],
       },
     },
   },

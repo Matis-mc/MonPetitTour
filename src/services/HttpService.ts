@@ -78,7 +78,7 @@ class HttpService {
         return response.data;
     }
 
-    async loadResultTourFromFitFile(file: File, tourId: string) {
+    async loadResultTourFromFitFile(file: File, tourId: number) {
         const formData = new FormData()
         formData.append('file', file)
 

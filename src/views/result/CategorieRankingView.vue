@@ -1,8 +1,9 @@
 <template>
-    <div class="flex flex-col items-center gap-6 p-6" :style="{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover' }">
+    <div class="flex flex-col items-center gap-4 p-3 pb-32 min-h-full" :style="{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundAttachment: 'fixed' }">
+
         <h2 class="text-3xl font-bold text-gray-800">Classements du Tour</h2>
         
-        <div v-if="tourResultat" class="flex flex-col gap-8 w-full max-w-4xl">
+        <div v-if="tourResultat" class="flex flex-col gap-4 w-full max-w-4xl">
             <RankingByCategory 
                 categoryName="Classement Général" 
                 :rankings="tourResultat.ranking.general" 

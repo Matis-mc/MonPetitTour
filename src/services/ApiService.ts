@@ -1,7 +1,7 @@
 import { TourCreation } from "@/model/TourCreation";
 import HttpService from "./HttpService";
 import { getCategoryName } from "@/constants/categories";
-import { mapToTourResultatWithoutRankings } from "@/mapper/TourResultatMapper";
+import { mapToTourResultat, mapToTourResultatWithoutRankings } from "@/mapper/TourResultatMapper";
 
 class ApiService {
 
@@ -17,14 +17,26 @@ class ApiService {
     }
 
     async getTours() {
-        return await HttpService.getTours();
+        const response = await HttpService.getTours();
+        return response.map((t: any) => {
+            if (t.rankings) {
+                return mapToTourResultat(t);
+            } else {
+                return mapToTourResultatWithoutRankings(t);
+            }
+        });
     }
 
     async getTourByCode(code: string) {
-        return await HttpService.getTourByCode(code);
+        const response = await HttpService.getTourByCode(code);
+        if (response.rankings) {
+            return mapToTourResultat(response);
+        } else {
+            return mapToTourResultatWithoutRankings(response);
+        }
     }
 
-    async loadResultTourFromFitFile(file: File, tourId: string) {
+    async loadResultTourFromFitFile(file: File, tourId: number) {
         return await HttpService.loadResultTourFromFitFile(file, tourId);
     }
 

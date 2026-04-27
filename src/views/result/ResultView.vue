@@ -1,11 +1,15 @@
 <template>
-    <div class="flex flex-col items-center gap-6">
-        <img  class="w-64 h-64 rounded-full" :src="img_user" alt="">
-        <img class="w-32 h-32" :src="decoration_general" alt="">
+    <div class="flex flex-col items-center p-3 pb-32 min-h-full" :style="{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundAttachment: 'fixed' }">
+        <img class="w-64 h-64 rounded-full mt-6" :src="img_user" alt="">
+        <img class="w-32 h-32 mb-10" :src="decoration_general" alt="">
+        <p class="text-2xl font-bold">Tu es classé </p>
+        <div class="flex flex-row items-center"><p class="text-6xl font-bold mb-10">{{ user_general_rank }}</p><p class="text-2xl font-bold mb-10">/{{ userResultat?.length || 0 }}</p></div>
         <BlackRoundButton text="Suivant" @click="routingService.goToCategorieRanking()" />
     </div>
 </template>
 <script setup lang="ts">
+import bgImage from '@/assets/images/background/background-light.png';
+
 import RankingService from '@/services/RankingService';
 import { useAuthStore } from '@/stores/AuthStore';
 import { useResultatTourStore } from '@/stores/ResultatTourStore';

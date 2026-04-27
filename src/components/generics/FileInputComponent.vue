@@ -43,8 +43,8 @@ const checkFileIsPresent = (input: HTMLInputElement) => {
 }
 
 const checkFileExtension = (file: File) => {
-  if(file.type !== props.fileType){
-    messageError.value = "Le fichier n'est pas du type : " + props.fileType;
+  if(file.name.split('.').pop() !== props.fileType.replace('.', '')){
+    messageError.value = "Le fichier n'est pas du type : " + props.fileType + "(ex: " + file.type + ")";
     return;
   }
 };
